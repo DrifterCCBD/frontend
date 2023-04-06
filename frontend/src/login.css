@@ -2,3 +2,11 @@
     text-align: center;
     margin-top: 25rem;
 }
+
+
+.register{
+    border-top: solid black;
+    border-top-width: thin;
+    width: 20%;
+    margin: auto;
+}

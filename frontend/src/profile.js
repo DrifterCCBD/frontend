@@ -1,5 +1,6 @@
-import HeaderDriver
- from "./header";
+import HeaderDriver from "./header";
+import './index.css'
+
 function Profile() {
     return (
       <div>

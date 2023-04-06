@@ -1,5 +1,6 @@
 import HeaderDriver from "./header";
 import './header.css'
+import './index.css'
 
 function Notifications() {
     return (

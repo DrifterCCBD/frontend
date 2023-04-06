@@ -1,5 +1,6 @@
 import React from "react";
 import './header.css'
+import './index.css'
 import { Link, useLocation } from "react-router-dom";
 
 function HeaderDriver() {
@@ -7,7 +8,9 @@ function HeaderDriver() {
     
   return (
     <header className="header">
+      <Link to="/mytrips">
         <div className="logo">Drifter</div>
+      </Link>
       <nav>
         <Link to="/notifications" className={location.pathname === "/notifications" ? "active" : ""}>
           Notifications
