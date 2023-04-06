@@ -9,4 +9,5 @@ phases:
        - npm install
        - npm run build
        - find build
-       - cd build && aws s3 cp . s3://drifter-coms6998 --recursive --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers 
+       - cd build && aws s3 cp . s3://drifter-coms6998 --recursive --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers
+       - aws cloudfront create-invalidation --distribution-id "E2WWF1VINA17QN" --paths "/*"
