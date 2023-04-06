@@ -1,6 +1,6 @@
 import './App.css';
 
-import {BrowserRouter as Router, Route, Routes} from "react-router-dom";
+import {BrowserRouter as Router, Switch, Link,  Route,  Routes} from "react-router-dom";
 import Login from "./login";
 import Frontpage from './frontpage';
 import MyTrips from './mytripsDriver';
