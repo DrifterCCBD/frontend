@@ -6,6 +6,7 @@ phases:
        - ls -larh
        - aws s3 rm s3://drifter-coms6998 --recursive 
        - cd frontend
+       - npm run install
        - npm run build
        - find build
        - cd build && aws s3 cp . s3://drifter-coms6998 --recursive --grants read=uri=http://acs.amazonaws.com/groups/global/AllUsers 
