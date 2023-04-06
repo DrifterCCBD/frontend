@@ -7,7 +7,7 @@
 .mytrips-table{
     margin: auto;
     margin-top: 1rem;
-    border-radius: 3%;
+    border-radius: 0.25rem;
     background-color: #C8B88A;
     border-collapse: collapse;
 }
@@ -16,7 +16,6 @@ th{
     padding: 0.5rem;
     border: 1px solid black;
 }
-
 
 
 td{
@@ -28,5 +27,5 @@ td{
 }
 
 .create-trip-button{
-    margin-left: 30rem;
+    margin-left: 50rem;
 }

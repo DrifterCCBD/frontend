@@ -17,14 +17,14 @@ function Frontpage() {
               </h2>
             </div>
             <div className="buttons">
-                <Link to="/login">
+                <Link to="https://drifter-coms6998.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3t2sp5jg3mphpbo3udmptlrpi4&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fjianmin.dev%2F">
                 <button className="frontpage-button">Get drifting 
                     <FontAwesomeIcon icon={faArrowRight} className="right-arrow"/>
                 </button>
                 </Link>
             </div>
             <div className="buttons">
-              <Link to="/login">
+              <Link to="https://drifter-coms6998.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3t2sp5jg3mphpbo3udmptlrpi4&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fjianmin.dev%2F">
                 <button className="frontpage-button">For drivers 
                   <FontAwesomeIcon icon={faArrowRight} className="right-arrow"/>
                 </button>

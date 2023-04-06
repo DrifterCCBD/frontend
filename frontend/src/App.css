@@ -30,7 +30,11 @@ button{
   padding-right: 0.5rem;
   border: none;
   background-color: #C8B88A;
-  border-radius: 15%;
+  border-radius: 0.25rem;
+}
+
+button:hover{
+  font-weight: bold;
 }
 
 .frontpage-title{
@@ -59,7 +63,7 @@ button{
 .frontpage-button{
   font-size: 7rem;
   margin: 1rem;
-  border-radius: 3%;
+  border-radius: 0.25rem;
   border: none;
   padding: 0.5rem;
 }

@@ -1,7 +1,8 @@
-import HeaderDriver from "./header";
-import './header.css'
+import HeaderDriver from "./headerDriver";
+import './headerDriver.css'
 import './index.css'
-import './mytrips.css'
+import './mytripsDriver.css'
+import { Link } from "react-router-dom";
 
 import { useState, useEffect } from 'react';
 
@@ -86,7 +87,9 @@ function MyTrips() {
         </table>
       </div>
       <button className="logout-button">Log out</button>
-      <button className="create-trip-button">Create a new trip</button>
+      <Link to="/createTrip">
+        <button className="create-trip-button">Create a new trip</button>
+      </Link>
     </div>
   );
 }

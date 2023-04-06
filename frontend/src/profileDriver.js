@@ -1,7 +1,7 @@
-import HeaderDriver from "./header";
+import HeaderDriver from "./headerDriver";
 import './index.css'
 
-function Profile() {
+function profileDriver() {
     return (
       <div>
         <HeaderDriver></HeaderDriver>
@@ -11,5 +11,5 @@ function Profile() {
     );
   }
   
-  export default Profile;
+  export default profileDriver;
   
