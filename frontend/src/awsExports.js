@@ -7,8 +7,8 @@ const amplifyAuth = {
       oauth: {
         domain: 'drifter-coms6998.auth.us-east-1.amazoncognito.com',
         scope: ['openid'],
-        redirectSignIn: 'http://localhost:3000/',
-        redirectSignOut: 'http://localhost:3000/',
+        redirectSignIn: 'https://d1k6d57tbwe8ks.cloudfront.net/',
+        redirectSignOut: 'https://d1k6d57tbwe8ks.cloudfront.net/',
         responseType: 'code',
       }
     }

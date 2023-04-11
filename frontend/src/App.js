@@ -13,11 +13,7 @@ import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import {default as amplifyAuth} from './awsExports';
 
-
-
 Amplify.configure(amplifyAuth);
-console.log(amplifyAuth)
-
 
 function App() {
   /* https://ui.docs.amplify.aws/react/connected-components/authenticator/customization */
