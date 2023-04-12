@@ -28,7 +28,7 @@ function HeaderDriver() {
         </Link>
         <Link
           to="/profileDriver"
-          className={location.pathname === "/profileDriver" ? "active" : ""}
+          className={location.pathname === "/profileDriver" || location.pathname === "/editprofileDriver" ? "active" : ""}
         >
           Profile
         </Link>

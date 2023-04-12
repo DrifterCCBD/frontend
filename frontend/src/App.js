@@ -7,12 +7,13 @@ import MyTrips from './mytripsDriver';
 import AllRoutes from './allroutesdriver';
 import Notifications from './notifications';
 import CreateTripDriver from './createtripDriver';
-import profileDriver from './profileDriver';
+import ProfileDriver from './profileDriver';
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import {default as amplifyAuth} from './awsExports';
 import chooseRouteDriver from './chooseRouteDriver';
+import EditprofileDriver from './editProfileDriver';
 
 Amplify.configure(amplifyAuth);
 
@@ -28,7 +29,7 @@ function App() {
             </Route>
             <Route path="/mytripsDriver" Component={MyTrips}>
             </Route>
-            <Route path="/profileDriver" Component={profileDriver}>
+            <Route path="/profileDriver" Component={ProfileDriver}>
             </Route>
             <Route path="/routes" Component={AllRoutes}>
             </Route>
@@ -36,6 +37,7 @@ function App() {
             </Route>
             <Route path="/createTripDriver" Component={CreateTripDriver}></Route>
             <Route path="/chooseRouteDriver" Component={chooseRouteDriver}></Route>
+            <Route path="/editprofileDriver" Component={EditprofileDriver}></Route>
           </Routes>
         </Router>
      // </Authenticator>
