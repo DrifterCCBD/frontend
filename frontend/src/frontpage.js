@@ -24,7 +24,7 @@ function Frontpage() {
                 </Link>
             </div>
             <div className="buttons">
-                <Link to="https://drifter-coms6998.auth.us-east-1.amazoncognito.com/oauth2/authorize?client_id=3t2sp5jg3mphpbo3udmptlrpi4&response_type=code&scope=email+openid+phone&redirect_uri=https%3A%2F%2Fd1k6d57tbwe8ks.cloudfront.net%2Flogin">
+                <Link to="/profile">
                 <button className="frontpage-button">For drivers 
                   <FontAwesomeIcon icon={faArrowRight} className="right-arrow"/>
                 </button>
