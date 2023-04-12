@@ -17,7 +17,7 @@ function Frontpage() {
               </h2>
             </div>
             <div className="buttons">
-                <Link to="/login">
+                <Link to="/profileDriver">
                 <button className="frontpage-button">Get drifting 
                     <FontAwesomeIcon icon={faArrowRight} className="right-arrow"/>
                 </button>
