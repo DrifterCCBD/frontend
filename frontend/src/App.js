@@ -7,7 +7,7 @@ import MyTrips from './mytripsDriver';
 import AllRoutes from './allroutesdriver';
 import Notifications from './notifications';
 import CreateTrip from './createtripDriver';
-import profileDriver from './profileDriver';
+import ProfileDriver from './profileDriver';
 import { Amplify } from 'aws-amplify';
 import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
@@ -27,7 +27,7 @@ function App() {
             </Route>
             <Route path="/mytrips" Component={MyTrips}>
             </Route>
-            <Route path="/profile" Component={profileDriver}>
+            <Route path="/profile" Component={ProfileDriver}>
             </Route>
             <Route path="/routes" Component={AllRoutes}>
             </Route>
