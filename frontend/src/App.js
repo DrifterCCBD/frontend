@@ -22,7 +22,7 @@ function App() {
 /* https://docs.amplify.aws/lib/auth/getting-started/q/platform/js/#option-1-use-pre-built-ui-components */
   /*https://ui.docs.amplify.aws/react/connected-components/authenticator/configuration*/
     return (
-     // <Authenticator signUpAttributes={['email']}>
+     <Authenticator signUpAttributes={['email']}>
         <Router>
           <Routes>
             <Route path="/" Component={Frontpage}>
@@ -40,7 +40,7 @@ function App() {
             <Route path="/editprofileDriver" Component={EditprofileDriver}></Route>
           </Routes>
         </Router>
-     // </Authenticator>
+     </Authenticator>
     );
 
 }
