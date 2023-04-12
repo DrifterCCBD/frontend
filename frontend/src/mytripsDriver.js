@@ -7,6 +7,8 @@ import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
 
 function MyTrips() {
+  // TODO: Get data from database
+
   // const [data, setData] = useState([]);
 
   // useEffect(() => {
@@ -39,12 +41,13 @@ function MyTrips() {
             </tr> */}
           </thead>
           <tbody>
-            <tr></tr>
+            <tr>
               <td>1</td>
               <td>LA</td>
               <td>NY</td>
               <td>1141</td>
               <td>06-04-2023 12:00PM</td>
+            </tr>
             {/* {data.map(item => (
               <tr key={item.id}>
                 {Object.keys(item).map(key => (
@@ -87,7 +90,7 @@ function MyTrips() {
         </table>
       </div>
       <button className="logout-button">Log out</button>
-      <Link to="/createTrip">
+      <Link to="/createTripDriver">
         <button className="create-trip-button">Create a new trip</button>
       </Link>
     </div>

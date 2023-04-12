@@ -8,7 +8,7 @@ function HeaderDriver() {
     
   return (
     <header className="header">
-      <Link to="/mytrips">
+      <Link to="/mytripsDriver">
         <div className="logo">Drifter</div>
       </Link>
       <nav>
@@ -21,14 +21,14 @@ function HeaderDriver() {
           Routes
         </Link>
         <Link
-          to="/mytrips"
-          className={location.pathname === "/mytrips" ? "active" : ""}
+          to="/mytripsDriver"
+          className={location.pathname === "/mytripsDriver" ? "active" : ""}
         >
           MyTrips
         </Link>
         <Link
-          to="/profile"
-          className={location.pathname === "/profile" ? "active" : ""}
+          to="/profileDriver"
+          className={location.pathname === "/profileDriver" ? "active" : ""}
         >
           Profile
         </Link>

@@ -1,0 +1,52 @@
+.routes-div{
+    text-align: center;
+    margin-top: 10rem;
+    margin-bottom: 5rem;
+}
+
+.routes-table{
+    margin: auto;
+    margin-top: 1rem;
+    border-radius: 0.25rem;
+    background-color: #C8B88A;
+    border-collapse: collapse;
+    
+}
+
+th{
+    padding: 0.5rem;
+    border: 1px solid black;
+    text-align: left;
+}
+
+
+.link-td{
+    border: 1px solid black;
+    text-align: left;
+    width: 25%;
+}
+
+
+.link-tr:hover{
+    background-color: grey;
+}
+
+.mytrips-table-row {
+    display: table-row;
+    text-decoration: none;
+    color: inherit;
+  }
+
+.link-route{
+    color: black;
+    padding-right: 100%;
+}
+
+
+.logout-button{
+    margin-left: 5rem;
+}
+
+.create-trip-button{
+    margin-left: 50%;
+}
