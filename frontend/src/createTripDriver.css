@@ -28,7 +28,8 @@ label {
 
 input[type="text"],
   input[type="date"],
-  input[type="time"] {
+  input[type="time"] ,
+  input[type="number"] {
     margin-top: 0.5rem;
     padding: 0.5rem;
     border-radius: 0.25rem;
