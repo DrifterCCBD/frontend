@@ -22,22 +22,20 @@ function ProfileDriver() {
   });
   }, []);*/
   useEffect(() => {
-    Auth.currentSession().then(res=>{
-      let accessToken = res.getAccessToken()
-      let jwt = accessToken.getJwtToken()
-          
-      //You can print them to see the full objects
-      console.log(`myAccessToken: ${JSON.stringify(accessToken)}`)
-      console.log(`myJwt: ${jwt}`)
-      setJWTToken(jwt)
-      Auth.currentUserInfo().then(response => {
-        setUsername(response.username);
-        console.log(response);
-        
+    Auth.currentAuthenticatedUser()
+    .then( user => {
+      console.log(user)
+      user.getSession((err, session) => {
+        if(err) {
+          throw new Error(err);
+        }
+        console.log(session);
+        const sessionToken = session.getIdToken().jwtToken;
+        // https://technology.customink.com/blog/2019/08/16/authorization-with-api-gateway-and-congito/
         axios
-        .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/' + response.username, {
+        .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/' + session.username, {
           headers: {
-            "Authorization": jwtToken
+            "Authorization": sessionToken
           }
         })
         .then((res) => {
@@ -48,9 +46,6 @@ function ProfileDriver() {
             console.error('Error:', err);
         });
       })      
-      .catch((err) => {
-            console.error('Error:', err);
-        });
     })
   }, []);
 
