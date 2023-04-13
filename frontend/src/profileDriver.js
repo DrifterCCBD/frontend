@@ -1,10 +1,54 @@
 import HeaderDriver from "./headerDriver";
-import './index.css'
+import { Auth } from 'aws-amplify';
+import axios from 'axios';
 import './profiledriver.css'
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
+import './index.css';
+
 
 function ProfileDriver() {
+  const [username, setUsername] = useState('');
+  const [profileInfo, setProfileInfo] = useState('');
+  const [jwtToken, setJWTToken] = useState('');
+  /*
+  useEffect(() => {
+    
+    Auth.currentUserCredentials().then(response => {
+      console.log(response);
+    })
+    .catch((err) => {
+      console.error('Error:', err);
+  });
+  }, []);*/
+  useEffect(() => {
+    Auth.currentAuthenticatedUser()
+    .then( user => {
+      console.log(user)
+      user.getSession((err, session) => {
+        if(err) {
+          throw new Error(err);
+        }
+        console.log(session);
+        const sessionToken = session.getIdToken().jwtToken;
+        // https://technology.customink.com/blog/2019/08/16/authorization-with-api-gateway-and-congito/
+        axios
+        .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/' + session.username, {
+          headers: {
+            "Authorization": sessionToken
+          }
+        })
+        .then((res) => {
+            console.log(res);
+            setProfileInfo(JSON.stringify(res.data));
+        })
+        .catch((err) => {
+            console.error('Error:', err);
+        });
+      })      
+    })
+  }, []);
+
   // TODO: call endpoint for getting data
     // const [userData, setUserData] = useState(null);
 
@@ -32,6 +76,9 @@ function ProfileDriver() {
     return (
       <div>
         <HeaderDriver></HeaderDriver>
+        <h1>Profile Page</h1>
+        Currently Logged In as: {username} - {profileInfo}
+        {/* Add your code here*/}
         <div className='profile-container'>
           <div className="profile-info">
             <h1>{firstName} {lastName}'s Profile</h1>

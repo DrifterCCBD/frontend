@@ -58,6 +58,9 @@ function CreateTripDriver() {
           <label for="time">Time of travel:</label>
           <input type="time" id="time" name="time" required/>
 
+          <label for="number">Max capacity:</label>
+          <input type="number" id="number" name="number" required/>
+
           <Link to="/mytripsDriver">
             <input id="createTrip" type="submit" value="Create trip"/>
           </Link>
