@@ -1,0 +1,29 @@
+.mytrips-div{
+    text-align: center;
+    margin-top: 10rem;
+    margin-bottom: 5rem;
+}
+
+th{
+    padding: 0.5rem;
+    border: 1px solid black;
+}
+
+
+td{
+    border: 1px solid black;
+}
+
+.logout-button{
+    margin-left: 5rem;
+}
+
+.create-trip-button{
+    margin-left: 50rem;
+}
+
+#googleMap {
+    width: 80%;
+    height: 400px;
+    margin: 20px auto;
+}
