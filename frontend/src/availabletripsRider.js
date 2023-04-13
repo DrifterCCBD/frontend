@@ -2,7 +2,7 @@ import HeaderRider from "./headerRider";
 import './headerRider.css'
 import './index.css'
 import './mytripsRider.css'
-// import './availabletripsRider.css'
+// import './availableTripsRider.css'
 import { Link } from "react-router-dom";
 
 import { useState, useEffect } from 'react';
