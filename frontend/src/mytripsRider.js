@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import { useState, useEffect } from 'react';
 
-function MyTrips() {
+function MyTrripsRider() {
   // TODO: Get data from database
 
   // const [data, setData] = useState([]);
@@ -94,6 +94,6 @@ function MyTrips() {
   );
 }
 
-export default MyTrips;
+export default MyTripsRider;
 
   
