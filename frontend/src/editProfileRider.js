@@ -1,7 +1,7 @@
 import HeaderRider from "./headerRider";
-import './headerRider.css' // change to this
+import './headerRider.css'
 import './index.css'
-import './editprofileRider.css' // change tothis
+import './editprofileRider.css'
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 
@@ -71,12 +71,12 @@ function EditprofileRider() {
     // const { firstName, lastName, email, address, dob, gender } = formValues;
 
     // TODO: get rid of hardcoded values
-    const firstName = 'Helena'
-    const lastName = 'Jonsdottir'
-    const email = 'hsj2115@columbia.edu'
-    const address = '1234 Avenue 8'
-    const dob = '1998-08-31'
-    const gender = 'Female'
+    const firstName = 'Toby'
+    const lastName = 'Savage'
+    const email = 'ts3496@columbia.edu'
+    const address = '215 W 108th Street'
+    const dob = '1998-08-18'
+    const gender = 'Male'
 
   
     return (

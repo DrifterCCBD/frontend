@@ -5,7 +5,7 @@ import Login from "./login";
 import Frontpage from './frontpage';
 import MyTrips from './mytripsDriver';
 import AllRoutes from './allroutesdriver';
-import Notifications from './notifications';
+import Notifications from './notificationsDriver';
 import CreateTripDriver from './createtripDriver';
 import ProfileDriver from './profileDriver';
 import { Amplify } from 'aws-amplify';
@@ -27,6 +27,7 @@ function App() {
           <Routes>
             <Route path="/" Component={Frontpage}>
             </Route>
+            {/* Driver */}
             <Route path="/mytripsDriver" Component={MyTrips}>
             </Route>
             <Route path="/profileDriver" Component={ProfileDriver}>
@@ -38,6 +39,7 @@ function App() {
             <Route path="/createTripDriver" Component={CreateTripDriver}></Route>
             <Route path="/chooseRouteDriver" Component={chooseRouteDriver}></Route>
             <Route path="/editprofileDriver" Component={EditprofileDriver}></Route>
+            {/* Rider */}
           </Routes>
         </Router>
      </Authenticator>
