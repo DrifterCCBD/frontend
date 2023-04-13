@@ -12,7 +12,7 @@ function HeaderDriver() {
         <div className="logo">Drifter</div>
       </Link>
       <nav>
-        <Link to="/notifications" className={location.pathname === "/notifications" ? "active" : ""}>
+        <Link to="/notificationsDriver" className={location.pathname === "/notificationsDriver" ? "active" : ""}>
           Notifications
         </Link>
         <Link

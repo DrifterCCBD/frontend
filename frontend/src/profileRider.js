@@ -39,7 +39,6 @@ function ProfileRider() {
             <p>Address: {address}</p>
             <p>Date of Birth: {dob}</p>
             <p>Gender: {gender}</p>
-            <p>Background Check Status: {backgroundCheckStatus}</p>
           </div>
           <Link to="/editprofileRider">
             <button className="edit-btn">Edit</button>
