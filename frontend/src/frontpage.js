@@ -17,14 +17,14 @@ function Frontpage() {
               </h2>
             </div>
             <div className="buttons">
-                <Link to="/profileDriver">
+                <Link to="/availableRoutesRider">
                 <button className="frontpage-button">Get drifting 
                     <FontAwesomeIcon icon={faArrowRight} className="right-arrow"/>
                 </button>
                 </Link>
             </div>
             <div className="buttons">
-                <Link to="/profile">
+                <Link to="/mytripsDriver">
                 <button className="frontpage-button">For drivers 
                   <FontAwesomeIcon icon={faArrowRight} className="right-arrow"/>
                 </button>
