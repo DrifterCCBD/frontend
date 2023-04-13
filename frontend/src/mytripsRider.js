@@ -6,7 +6,7 @@ import { Link } from "react-router-dom";
 
 import { useState, useEffect } from 'react';
 
-function MyTrripsRider() {
+function MyTripsRider() {
   // TODO: Get data from database
 
   // const [data, setData] = useState([]);

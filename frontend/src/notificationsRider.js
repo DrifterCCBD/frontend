@@ -19,7 +19,7 @@ function NotificationsRider() {
           <p>Toby has accepted your trip from LA to NY</p>
           <div>
             <button onClick={() => setIsOpen(false)}>Decline</button>
-            <Link to="/availabletripsRider">
+            <Link to="/availableRoutesRider">
               <button>Accept</button>
             </Link>
           </div>

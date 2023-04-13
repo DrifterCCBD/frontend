@@ -8,7 +8,7 @@ import Modal from "react-modal";
 
 
 
-function Notifications() {
+function NotificationsDriver() {
   // TODO: connect with lambda and check if there's a new trip request
   const [isOpen, setIsOpen] = useState(false);
 
@@ -39,5 +39,5 @@ function Notifications() {
     );
   }
   
-  export default Notifications;
+  export default NotificationsDriver;
   

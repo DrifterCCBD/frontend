@@ -16,8 +16,8 @@ function HeaderRider() {
           Notifications
         </Link>
         <Link
-          to="/routes"
-          className={location.pathname === "/routes" ? "active" : ""}>
+          to="/availableRoutesRider"
+          className={location.pathname === "/availableRoutesRider" ? "active" : ""}>
           Routes
         </Link>
         <Link

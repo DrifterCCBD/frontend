@@ -15,7 +15,7 @@ function RouteSelectionConfirmation() {
                 <h3>Thank you for selecting a trip! We'll let you know when {driverName} accepts your</h3>
             </div>
             <div>
-                <Link to="/availableTripsRider">
+                <Link to="/availableRoutesRider">
                     <button>Back</button>
                 </Link>
             </div>
