@@ -48,10 +48,9 @@ function availableRoutesRider() {
               <td>Lenox Hill</td>
               <td>Male, 3 years experience</td>
               <td>
-                Select 
-                {/* <button onClick={() => window.location.href='/maps'}>
+                <button onClick={() => window.location.href='/map'}>
                   Select
-                </button> */}
+                </button>
               </td>
             </tr>
             {/* {data.map(item => (

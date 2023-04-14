@@ -22,6 +22,7 @@ import availableRoutesRider from './availableRoutesRider';
 import RouteSelectionConfirmationRider from './routeSelectionConfirmationRider';
 // import AllRoutesRider from './allRoutesRider'
 import NotificationsRider from './notificationsRider'
+import Map from './map'
 
 Amplify.configure(amplifyAuth);
 
@@ -56,6 +57,7 @@ function App() {
             <Route path="/routeSelectionConfirmationRider" Component={RouteSelectionConfirmationRider}></Route>
             {/* <Route path="/allRoutesRider" Component={AllRoutesRider}></Route> */}
             <Route path="/notificationsRider" Component={NotificationsRider}></Route>
+            <Route path="/map" Component={Map}></Route>
           </Routes>
         </Router>
      </Authenticator>
