@@ -11,6 +11,13 @@ function ProfileDriver() {
   const [username, setUsername] = useState('');
   const [profileInfo, setProfileInfo] = useState('');
   const [jwtToken, setJWTToken] = useState('');
+  const [firstName, setFirstName] = useState(''); 
+  const [lastName, setLastName] = useState(''); 
+  const [email, setEmail] = useState(''); 
+  const [address, setAddress] = useState(''); 
+  const [dob, setDOB] = useState(''); 
+  const [gender, setGender] = useState(''); 
+  const [backgroundCheckStatus, setBackgroundCheckStatus] = useState(''); 
   /*
   useEffect(() => {
     
@@ -25,6 +32,7 @@ function ProfileDriver() {
     Auth.currentAuthenticatedUser()
     .then( user => {
       console.log(user)
+      setUsername(user.username)
       user.getSession((err, session) => {
         if(err) {
           throw new Error(err);
@@ -33,13 +41,24 @@ function ProfileDriver() {
         const sessionToken = session.getIdToken().jwtToken;
         // https://technology.customink.com/blog/2019/08/16/authorization-with-api-gateway-and-congito/
         axios
-        .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/' + session.username, {
+        .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/' + user.username, {
           headers: {
             "Authorization": sessionToken
           }
         })
         .then((res) => {
             console.log(res);
+            if(res.data.length > 0) {
+              user = res.data[0]
+              setFirstName(user["first_name"]);
+              setLastName(user["last_name"]);
+              setEmail(user["email"])
+              setDOB(user["dob"])
+              setGender(user["gender"])
+              if (user["address_id"]) {
+                setAddress(user["street_name_and_number"] + " " + user["city"] + " " +user["country"] + " " + user["zip_code"]);
+              }
+            }
             setProfileInfo(JSON.stringify(res.data));
         })
         .catch((err) => {
@@ -65,19 +84,13 @@ function ProfileDriver() {
 
     // const { firstName, lastName, email, address, dob, gender, backgroundCheckStatus } = userData;
 
-    const firstName = 'Helena'
-    const lastName = 'Jonsdottir'
-    const email = 'hsj2115@columbia.edu'
-    const address = '1234 Avenue 8'
-    const dob = 'Aug 31st 1998'
-    const gender = 'Female'
-    const backgroundCheckStatus = 'accepted'
+
 
     return (
       <div>
         <HeaderDriver></HeaderDriver>
         <h1>Profile Page</h1>
-        Currently Logged In as: {username} - {profileInfo}
+        Currently Logged In as: {username}
         {/* Add your code here*/}
         <div className='profile-container'>
           <div className="profile-info">
