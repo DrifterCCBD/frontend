@@ -3,30 +3,40 @@ import './headerDriver.css'
 import './index.css'
 import './mytripsDriver.css'
 import { Link } from "react-router-dom";
-
-
 import { useState, useEffect } from 'react';
 
-function MyTrips() {
-  // TODO: Get data from database
+import { Auth } from 'aws-amplify';
 
+
+function MyTrips() {
+  
   const [data, setData] = useState([]);
   const [future_trips, setFutureTrips] = useState([]);
   const [past_trips, setPastTrips] = useState([]);
 
   useEffect(() => {
-    fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?username=bja2142') // todo: change so it's not hardcoded
-      .then(response => response.json())
-      .then(data => {
-        setData((data['body']))
-        const parsedData = JSON.parse(data['body']);
-        setFutureTrips(parsedData['results']['future_trips']);
-        setPastTrips(parsedData['results']['past_trips']);
-      })
-      .catch(error => {
-        console.log(error);
-      });
+  // Get the currently authenticated user
+  Auth.currentAuthenticatedUser()
+    .then(user => {
+      console.log('Authenticated user:', user.username);
+      const username = user.username;
+
+      // Make the fetch request with the updated username value
+      fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?username=' + username)
+        .then(response => response.json())
+        .then(data => {
+          setData(data['body']);
+          const parsedData = JSON.parse(data['body']);
+          setFutureTrips(parsedData['results']['future_trips']);
+          setPastTrips(parsedData['results']['past_trips']);
+        })
+        .catch(error => {
+          console.log(error);
+        });
+    })
+    .catch(error => console.log('Error getting authenticated user:', error));
   }, []);
+
 
   return (
     <div>
