@@ -2,9 +2,8 @@ import './App.css';
 
 import {BrowserRouter as Router,  Route,  Routes} from "react-router-dom";
 import Frontpage from './frontpage';
-import MyTripsDriver from './mytripsDriver';
-import AllRoutesDriver from './allroutesdriver';
-import NotificationsDriver from './notificationsDriver';
+import MyTrips from './mytripsDriver';
+import Notifications from './notifications';
 import CreateTripDriver from './createtripDriver';
 import ProfileDriver from './profileDriver';
 import { Amplify } from 'aws-amplify';
@@ -39,9 +38,7 @@ function App() {
             </Route>
             <Route path="/profileDriver" Component={ProfileDriver}>
             </Route>
-            <Route path="/allRoutesDriver" Component={AllRoutesDriver}>
-            </Route>
-            <Route path="/notificationsDriver" Component={NotificationsDriver}>
+            <Route path="/notifications" Component={Notifications}>
             </Route>
             <Route path="/createTripDriver" Component={CreateTripDriver}></Route>
             <Route path="/chooseRouteDriver" Component={chooseRouteDriver}></Route>
