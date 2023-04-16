@@ -16,11 +16,6 @@ function HeaderDriver() {
           Notifications
         </Link>
         <Link
-          to="/routes"
-          className={location.pathname === "/routes" ? "active" : ""}>
-          Routes
-        </Link>
-        <Link
           to="/mytripsDriver"
           className={location.pathname === "/mytripsDriver" ? "active" : ""}
         >

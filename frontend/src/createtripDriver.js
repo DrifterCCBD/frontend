@@ -44,30 +44,11 @@ function CreateTripDriver() {
     
     
 
-
-    useEffect(() => {
-      const searchParams = new URLSearchParams(location.search);
-      const origin = searchParams.get("origin");
-      const destination = searchParams.get("destination");
-  
-      console.log(`Origin: ${origin}, Destination: ${destination}`);
-  
-      // Set default values for input fields if origin and destination are defined
-      if (origin && destination) {
-        document.getElementById("origin").value = origin;
-        document.getElementById("destination").value = destination;
-      }
-    }, [location]);
-
     return (
       <div>
         <HeaderDriver></HeaderDriver>
         <div className="header-create-trip">
           <h1>Create a new trip</h1>
-          <p>Pick an existing route or make a new one</p>
-          <Link to="/chooseRouteDriver">
-              <button>Choose route</button>
-          </Link>
         </div>
 
         <form id="createTripForm">

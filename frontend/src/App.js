@@ -4,7 +4,6 @@ import {BrowserRouter as Router,  Route,  Routes} from "react-router-dom";
 import Login from "./login";
 import Frontpage from './frontpage';
 import MyTrips from './mytripsDriver';
-import AllRoutes from './allroutesdriver';
 import Notifications from './notifications';
 import CreateTripDriver from './createtripDriver';
 import ProfileDriver from './profileDriver';
@@ -30,8 +29,6 @@ function App() {
             <Route path="/mytripsDriver" Component={MyTrips}>
             </Route>
             <Route path="/profileDriver" Component={ProfileDriver}>
-            </Route>
-            <Route path="/routes" Component={AllRoutes}>
             </Route>
             <Route path="/notifications" Component={Notifications}>
             </Route>
