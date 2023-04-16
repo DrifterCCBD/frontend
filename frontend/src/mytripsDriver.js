@@ -4,23 +4,29 @@ import './index.css'
 import './mytripsDriver.css'
 import { Link } from "react-router-dom";
 
+
 import { useState, useEffect } from 'react';
 
 function MyTrips() {
   // TODO: Get data from database
 
-  // const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
+  const [future_trips, setFutureTrips] = useState([]);
+  const [past_trips, setPastTrips] = useState([]);
 
-  // useEffect(() => {
-  //   fetch('https://example.com/api/data') // todo: 
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       setData(data);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?username=bja2142') // todo: change so it's not hardcoded
+      .then(response => response.json())
+      .then(data => {
+        setData((data['body']))
+        const parsedData = JSON.parse(data['body']);
+        setFutureTrips(parsedData['results']['future_trips']);
+        setPastTrips(parsedData['results']['past_trips']);
+      })
+      .catch(error => {
+        console.log(error);
+      });
+  }, []);
 
   return (
     <div>
@@ -34,27 +40,15 @@ function MyTrips() {
             <th>Destination</th>
             <th>Rider</th>
             <th>Date & time</th>
-            {/* <tr>
-              {Object.keys(data[0]).map(key => (
-                <th key={key}>{key}</th>
-              ))}
-            </tr> */}
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>LA</td>
-              <td>NY</td>
-              <td>1141</td>
-              <td>06-04-2023 12:00PM</td>
-            </tr>
-            {/* {data.map(item => (
+            {future_trips.map(item => (
               <tr key={item.id}>
                 {Object.keys(item).map(key => (
                   <td key={key}>{item[key]}</td>
                 ))}
               </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
         <h3>Past trips</h3>
@@ -65,27 +59,15 @@ function MyTrips() {
             <th>Destination</th>
             <th>Rider</th>
             <th>Date & time</th>
-            {/* <tr>
-              {Object.keys(data[0]).map(key => (
-                <th key={key}>{key}</th>
-              ))}
-            </tr> */}
           </thead>
           <tbody>
-            <tr>
-              <td>1</td>
-              <td>LA</td>
-              <td>NY</td>
-              <td>1141</td>
-              <td>06-04-2023 12:00PM</td>
-            </tr>
-            {/* {data.map(item => (
+            {past_trips.map(item => (
               <tr key={item.id}>
                 {Object.keys(item).map(key => (
                   <td key={key}>{item[key]}</td>
                 ))}
               </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
       </div>
