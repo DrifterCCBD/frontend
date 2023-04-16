@@ -2,7 +2,7 @@ import './App.css';
 
 import {BrowserRouter as Router,  Route,  Routes} from "react-router-dom";
 import Frontpage from './frontpage';
-import MyTrips from './mytripsDriver';
+import MyTripsDriver from './mytripsDriver';
 import NotificationsDriver from './notificationsDriver';
 import CreateTripDriver from './createtripDriver';
 import ProfileDriver from './profileDriver';
