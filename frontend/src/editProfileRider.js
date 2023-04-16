@@ -1,14 +1,14 @@
-import HeaderDriver from "./headerDriver";
-import './headerDriver.css'
+import HeaderRider from "./headerRider";
+import './headerRider.css'
 import './index.css'
-import './editprofileDriver.css'
+import './editprofileRider.css'
 import React, { useState, useEffect } from 'react';
 import { Link } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 import axios from 'axios';
-import { useHistory } from "react-router-dom";
 
-function EditprofileDriver() {
+function EditprofileRider() {
+
   const [userData, setUserData] = useState({});
   const [userToken, setUserToken] = useState("");
   const [username, setUsername] = useState('');
@@ -53,13 +53,13 @@ function EditprofileDriver() {
               console.log("user is", user)
               setUserData(user);
               setFormValues({
-                firstName: user.first_name != null ? user.first_name : "",
-                lastName: user.last_name != null ? user.last_name : "",
+                firstName: user.firstName != null ? user.firstName : "",
+                lastName: user.lastName != null ? user.lastName : "",
                 email: user.email != null ? user.email : "",
-                address: user.street_name_and_number != null ? user.street_name_and_number : "",
+                address: user.address != null ? user.address : "",
                 city: user.city != null ? user.city : "",
                 country: user.country != null ? user.country : "",
-                zip: user.zip_code != null ? user.zip_code : "",
+                zip: user.zip != null ? user.zip : "",
                 dob: user.dob != null ? user.dob : "",
                 gender: user.gender != null ? user.gender : "",
               });
@@ -103,7 +103,6 @@ function EditprofileDriver() {
         })
         .finally(() => {
           setIsSubmitting(false);
-          window.location.href = '/profileDriver';
         });
       return false;
     }
@@ -118,7 +117,7 @@ function EditprofileDriver() {
   
     return (
       <div>
-        <HeaderDriver />
+        <HeaderRider/>
         <div className="form-container">
           <form onSubmit={handleSubmit}>
             <div className="form-group">
@@ -163,18 +162,19 @@ function EditprofileDriver() {
                 </select>
             </div>
             <div>
-            <Link to="/profileDriver">
+            <Link to="/profileRider">
                 <button>Back</button>
             </Link>
-            <Link to="/profileDriver">
-                <button type="submit" onClick={handleSubmit}>Save</button>
+            <Link to="/profileRider">
+                <button type="submit"onClick={handleSubmit}>Save</button>
             </Link>
             </div>
         </form>
         </div>
     </div>
     );
+
   }
   
-  export default EditprofileDriver;
+  export default EditprofileRider;
   
