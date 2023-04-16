@@ -2,13 +2,13 @@ import { Link } from "react-router-dom";
 import HeaderDriver from "./headerDriver";
 import './headerDriver.css'
 import './index.css'
-import './notifications.css'
+import './notificationsDriver.css'
 import React, { useState } from "react";
 import Modal from "react-modal";
 
 
 
-function Notifications() {
+function NotificationsDriver() {
   // TODO: connect with lambda and check if there's a new trip request
   const [isOpen, setIsOpen] = useState(false);
 
@@ -39,5 +39,5 @@ function Notifications() {
     );
   }
   
-  export default Notifications;
+  export default NotificationsDriver;
   
