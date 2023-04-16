@@ -21,7 +21,7 @@ function HeaderDriver() {
           to="/mytripsDriver"
           className={location.pathname === "/mytripsDriver" ? "active" : ""}
         >
-          MyTrips
+          My trips
         </Link>
         <Link
           to="/profileDriver"
