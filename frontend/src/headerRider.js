@@ -19,13 +19,13 @@ function HeaderRider() {
         <Link
           to="/availableRoutesRider"
           className={location.pathname === "/availableRoutesRider" ? "active" : ""}>
-          Routes
+          All trips
         </Link>
         <Link
           to="/mytripsRider"
           className={location.pathname === "/mytripsRider" ? "active" : ""}
         >
-          MyTrips
+          My trips
         </Link>
         <Link
           to="/profileRider"
