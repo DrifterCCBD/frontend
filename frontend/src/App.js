@@ -1,7 +1,6 @@
 import './App.css';
 
 import {BrowserRouter as Router,  Route,  Routes} from "react-router-dom";
-import Login from "./login";
 import Frontpage from './frontpage';
 import MyTrips from './mytripsDriver';
 import Notifications from './notifications';
@@ -13,6 +12,14 @@ import '@aws-amplify/ui-react/styles.css';
 import {default as amplifyAuth} from './awsExports';
 import chooseRouteDriver from './chooseRouteDriver';
 import EditprofileDriver from './editProfileDriver';
+import ProfileRider from './profileRider';
+import EditprofileRider from './editProfileRider';
+import HeaderRider from './headerRider';
+import MyTripsRider from './mytripsRider';
+import availableRoutesRider from './availableRoutesRider';
+import RouteSelectionConfirmationRider from './routeSelectionConfirmationRider';
+// import AllRoutesRider from './allRoutesRider'
+import NotificationsRider from './notificationsRider'
 
 Amplify.configure(amplifyAuth);
 
@@ -26,7 +33,8 @@ function App() {
           <Routes>
             <Route path="/" Component={Frontpage}>
             </Route>
-            <Route path="/mytripsDriver" Component={MyTrips}>
+            {/* Driver */}
+            <Route path="/mytripsDriver" Component={MyTripsDriver}>
             </Route>
             <Route path="/profileDriver" Component={ProfileDriver}>
             </Route>
@@ -35,6 +43,15 @@ function App() {
             <Route path="/createTripDriver" Component={CreateTripDriver}></Route>
             <Route path="/chooseRouteDriver" Component={chooseRouteDriver}></Route>
             <Route path="/editprofileDriver" Component={EditprofileDriver}></Route>
+            {/* Rider */}
+            <Route path="/profileRider" Component={ProfileRider}></Route>
+            <Route path="/editProfileRider" Component={EditprofileRider}></Route>
+            <Route path="/headerRider" Component={HeaderRider}></Route>
+            <Route path="/mytripsRider" Component={MyTripsRider}></Route>
+            <Route path="/availableRoutesRider" Component={availableRoutesRider}></Route>
+            <Route path="/routeSelectionConfirmationRider" Component={RouteSelectionConfirmationRider}></Route>
+            {/* <Route path="/allRoutesRider" Component={AllRoutesRider}></Route> */}
+            <Route path="/notificationsRider" Component={NotificationsRider}></Route>
           </Routes>
         </Router>
      </Authenticator>
