@@ -2,6 +2,8 @@ import React from "react";
 import './headerDriver.css'
 import './index.css'
 import { Link, useLocation } from "react-router-dom";
+import logout from "./logout"
+
 
 function HeaderDriver() {
     const location = useLocation();
@@ -16,21 +18,22 @@ function HeaderDriver() {
           Notifications
         </Link>
         <Link
-          to="/allroutesdriver"
-          className={location.pathname === "/allroutesdriver" ? "active" : ""}>
-          Routes
-        </Link>
-        <Link
           to="/mytripsDriver"
           className={location.pathname === "/mytripsDriver" ? "active" : ""}
         >
-          MyTrips
+          My trips
         </Link>
         <Link
           to="/profileDriver"
           className={location.pathname === "/profileDriver" || location.pathname === "/editprofileDriver" ? "active" : ""}
         >
           Profile
+        </Link>
+        <Link
+          to="/"
+          onClick={logout}
+        >
+          Logout
         </Link>
       </nav>
     </header>

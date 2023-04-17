@@ -10,42 +10,48 @@ function CreateTripDriver() {
     const location = useLocation();
 
     useEffect(() => {
-      const createTrip = document.getElementById("createTrip");
+      const createTripForm = document.getElementById("createTripForm");
+    
+      createTripForm.addEventListener("submit", function (event) {
+        event.preventDefault()
+        const formData = new FormData(createTripForm);
 
-      createTrip.addEventListener("click", function () {
-        console.log("TODO: Add code to add to DB");
-        // Your code here
+        const tripData = {};
+        for (let [key, value] of formData.entries()) {
+          tripData[key] = value;
+        }
+    
+        fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip', {
+          method: 'POST',
+          // TODO: add authentication headers
+          headers: {
+            'Content-Type': 'application/json'
+          },
+          body: JSON.stringify(tripData)
+        })
+        .then(response => response.json())
+        .then(data => {
+          console.log('Trip created:', data);
+          alert('Trip created successfully!');
+          window.location.href = '/mytripsDriver';
+        })
+        .catch(error => {
+          console.error('Error creating trip:', error);
+          alert('Error creating trip, please try again');
+        });
       });
     }, []);
-
-
-    useEffect(() => {
-      const searchParams = new URLSearchParams(location.search);
-      const origin = searchParams.get("origin");
-      const destination = searchParams.get("destination");
-  
-      // TODO Use the origin and destination variables as needed
-      console.log(`Origin: ${origin}, Destination: ${destination}`);
-  
-      // Set default values for input fields if origin and destination are defined
-      if (origin && destination) {
-        document.getElementById("origin").value = origin;
-        document.getElementById("destination").value = destination;
-      }
-    }, [location]);
+    
+    
 
     return (
       <div>
         <HeaderDriver></HeaderDriver>
         <div className="header-create-trip">
           <h1>Create a new trip</h1>
-          <p>Pick an existing route or make a new one</p>
-          <Link to="/chooseRouteDriver">
-              <button>Choose route</button>
-          </Link>
         </div>
 
-        <form>
+        <form id="createTripForm">
           <label for="origin">Origin:</label>
           <input type="text" id="origin" name="origin" required/>
 
@@ -61,9 +67,9 @@ function CreateTripDriver() {
           <label for="number">Max capacity:</label>
           <input type="number" id="number" name="number" required/>
 
-          <Link to="/mytripsDriver">
-            <input id="createTrip" type="submit" value="Create trip"/>
-          </Link>
+
+          <input type="submit" value="Create trip"/>
+
 
         </form>
       </div>

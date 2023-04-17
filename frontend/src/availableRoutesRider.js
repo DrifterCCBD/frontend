@@ -4,30 +4,40 @@ import './index.css'
 import './mytripsRider.css'
 // import './availableRoutesRider.css'
 import { Link } from "react-router-dom";
-
+import { Auth } from 'aws-amplify';
 import { useState, useEffect } from 'react';
 
-function availableRoutesRider() {
+function AvailableRoutesRider() {
   // TODO: Get data from database
 
-  // const [data, setData] = useState([]);
+  const [data, setData] = useState([]);
+  const [available_trips, setAvailableTrips] = useState([]);
 
-  // useEffect(() => {
-  //   fetch('https://example.com/api/data') // todo: 
-  //     .then(response => response.json())
-  //     .then(data => {
-  //       setData(data);
-  //     })
-  //     .catch(error => {
-  //       console.log(error);
-  //     });
-  // }, []);
+  useEffect(() => {
+    // Make the fetch request for all available trips
+    fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?available=true')
+      .then(response => response.json())
+      .then(data => {
+        setData(data['body']);
+        
+        const parsedData = JSON.parse(data['body']);
+        console.log(parsedData)
+
+        setAvailableTrips(parsedData['results']['future_trips']);
+
+      })
+      .catch(error => {
+        console.log(error);
+      });
+
+    }, []);
+
 
   return (
     <div>
       <HeaderRider></HeaderRider>
       <div className="mytrips-div">
-        
+        <h2>All available trips</h2>
         <table className="mytrips-table">
           <thead>
             <th>Start Date and Time</th>
@@ -35,31 +45,21 @@ function availableRoutesRider() {
             <th>Origin</th>
             <th>Driver Info</th>
             <th></th>
-            {/* <tr>
-              {Object.keys(data[0]).map(key => (
-                <th key={key}>{key}</th>
-              ))}
-            </tr> */}
           </thead>
           <tbody>
-            <tr>
-              <td>04-28-2023 17:00</td>
-              <td>Hell's Kitchen</td>
-              <td>Lenox Hill</td>
-              <td>Male, 3 years experience</td>
-              <td>
-                <button onClick={() => window.location.href='/map'}>
-                  Select
-                </button>
-              </td>
-            </tr>
-            {/* {data.map(item => (
+            {available_trips.map(item => (
               <tr key={item.id}>
                 {Object.keys(item).map(key => (
                   <td key={key}>{item[key]}</td>
                 ))}
+                <td>
+                  Select 
+                  {/* <button onClick={() => window.location.href='/maps'}>
+                    Select
+                  </button> */}
+                </td>
               </tr>
-            ))} */}
+            ))}
           </tbody>
         </table>
       </div>
@@ -68,6 +68,6 @@ function availableRoutesRider() {
   );
 }
 
-export default availableRoutesRider;
+export default AvailableRoutesRider;
 
   

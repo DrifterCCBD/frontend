@@ -1,10 +1,8 @@
 import './App.css';
 
 import {BrowserRouter as Router,  Route,  Routes} from "react-router-dom";
-import Login from "./login";
 import Frontpage from './frontpage';
 import MyTripsDriver from './mytripsDriver';
-import AllRoutesDriver from './allroutesdriver';
 import NotificationsDriver from './notificationsDriver';
 import CreateTripDriver from './createtripDriver';
 import ProfileDriver from './profileDriver';
@@ -41,8 +39,6 @@ function App() {
             <Route path="/mytripsDriver" Component={MyTripsDriver}>
             </Route>
             <Route path="/profileDriver" Component={ProfileDriver}>
-            </Route>
-            <Route path="/allRoutesDriver" Component={AllRoutesDriver}>
             </Route>
             <Route path="/notificationsDriver" Component={NotificationsDriver}>
             </Route>
