@@ -1,0 +1,28 @@
+.header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    height: 60px;
+    background-color: #476930;
+    color: #fff;
+    padding: 0 20px;
+  }
+  
+nav{
+    display: flex;
+}
+  
+a{
+    color: #fff;
+    text-decoration: none;
+    margin: 0 10px;
+}
+
+.logo {
+    font-size: 24px;
+    font-weight: bold;
+  }
+
+a.active {
+    text-decoration: underline;
+}
