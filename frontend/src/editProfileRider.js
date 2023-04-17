@@ -53,13 +53,13 @@ function EditprofileRider() {
               console.log("user is", user)
               setUserData(user);
               setFormValues({
-                firstName: user.firstName != null ? user.firstName : "",
-                lastName: user.lastName != null ? user.lastName : "",
+                firstName: user.first_name != null ? user.first_name : "",
+                lastName: user.last_name != null ? user.last_name : "",
                 email: user.email != null ? user.email : "",
-                address: user.address != null ? user.address : "",
+                address: user.street_name_and_number != null ? user.street_name_and_number : "",
                 city: user.city != null ? user.city : "",
                 country: user.country != null ? user.country : "",
-                zip: user.zip != null ? user.zip : "",
+                zip: user.zip_code != null ? user.zip_code : "",
                 dob: user.dob != null ? user.dob : "",
                 gender: user.gender != null ? user.gender : "",
               });
@@ -103,6 +103,8 @@ function EditprofileRider() {
         })
         .finally(() => {
           setIsSubmitting(false);
+          window.location.href = '/profileRider';
+
         });
       return false;
     }
