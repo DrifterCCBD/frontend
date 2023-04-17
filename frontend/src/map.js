@@ -22,7 +22,7 @@ import { useJsApiLoader, GoogleMap, DirectionsRenderer } from '@react-google-map
 const center = { lat: 40.7129, lng: -74.0072 } // NYC
 // const center = { lat: 48.8584, lng: 2.2945 } // NYC
 
-const deploy_with_api_key = false;
+const deploy_with_api_key = true;
 
 function Map() { 
 
