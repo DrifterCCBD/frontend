@@ -77,7 +77,6 @@ function MyTripsRider() {
           </tbody>
         </table>
       </div>
-      <button className="logout-button">Log out</button>
     </div>
   );
 }

@@ -13,26 +13,44 @@ function MyTrips() {
   const [data, setData] = useState([]);
   const [future_trips, setFutureTrips] = useState([]);
   const [past_trips, setPastTrips] = useState([]);
+  
 
   useEffect(() => {
+
   // Get the currently authenticated user
   Auth.currentAuthenticatedUser()
     .then(user => {
       console.log('Authenticated user:', user.username);
       const username = user.username;
 
-      // Make the fetch request with the updated username value
-      fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?username=' + username + '&rider=false')
-        .then(response => response.json())
-        .then(data => {
-          setData(data['body']);
-          const parsedData = JSON.parse(data['body']);
-          setFutureTrips(parsedData['results']['future_trips']);
-          setPastTrips(parsedData['results']['past_trips']);
+      // # TODO: check if this works
+      Auth.currentSession()
+      .then(session => {
+        const accessToken = session.getAccessToken().getJwtToken();
+        console.log('Authorization token:', accessToken);
+
+        // Make the fetch request with the updated username value
+        fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?username=' + username + '&rider=false', {
+          headers: {
+            Authorization: `Bearer ${accessToken}`
+          }
         })
-        .catch(error => {
-          console.log(error);
-        });
+          .then(response => response.json())
+          .then(data => {
+            setData(data['body']);
+            const parsedData = JSON.parse(data['body']);
+            setFutureTrips(parsedData['results']['future_trips']);
+            setPastTrips(parsedData['results']['past_trips']);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+          
+      })
+      .catch(error => {
+        console.error('Error retrieving authorization token:', error);
+      });
+
     })
     .catch(error => console.log('Error getting authenticated user:', error));
   }, []);
@@ -81,7 +99,6 @@ function MyTrips() {
           </tbody>
         </table>
       </div>
-      <button className="logout-button">Log out</button>
       <Link to="/createTripDriver">
         <button className="create-trip-button">Create a new trip</button>
       </Link>

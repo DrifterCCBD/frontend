@@ -63,7 +63,6 @@ function AvailableRoutesRider() {
           </tbody>
         </table>
       </div>
-      <button className="logout-button">Log out</button>
     </div>
   );
 }
