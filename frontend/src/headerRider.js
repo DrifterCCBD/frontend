@@ -13,13 +13,11 @@ function HeaderRider() {
         <div className="logo">Drifter</div>
       </Link>
       <nav>
-        <Link to="/notificationsRider" className={location.pathname === "/notificationsRider" ? "active" : ""}>
-          Notifications
-        </Link>
+
         <Link
           to="/availableRoutesRider"
           className={location.pathname === "/availableRoutesRider" ? "active" : ""}>
-          All trips
+          Available trips
         </Link>
         <Link
           to="/mytripsRider"
