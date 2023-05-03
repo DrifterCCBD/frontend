@@ -14,9 +14,6 @@ function HeaderDriver() {
         <div className="logo">Drifter</div>
       </Link>
       <nav>
-        <Link to="/notificationsDriver" className={location.pathname === "/notificationsDriver" ? "active" : ""}>
-          Notifications
-        </Link>
         <Link
           to="/mytripsDriver"
           className={location.pathname === "/mytripsDriver" ? "active" : ""}

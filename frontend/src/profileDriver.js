@@ -18,16 +18,7 @@ function ProfileDriver() {
   const [dob, setDOB] = useState(''); 
   const [gender, setGender] = useState(''); 
   const [backgroundCheckStatus, setBackgroundCheckStatus] = useState(''); 
-  /*
-  useEffect(() => {
-    
-    Auth.currentUserCredentials().then(response => {
-      console.log(response);
-    })
-    .catch((err) => {
-      console.error('Error:', err);
-  });
-  }, []);*/
+
   useEffect(() => {
     Auth.currentAuthenticatedUser()
     .then( user => {
@@ -68,30 +59,11 @@ function ProfileDriver() {
     })
   }, []);
 
-  // TODO: call endpoint for getting data
-    // const [userData, setUserData] = useState(null);
-
-    // useEffect(() => {
-    //   fetch('https://example.com/api/user')
-    //     .then(response => response.json())
-    //     .then(data => setUserData(data))
-    //     .catch(error => console.error(error));
-    // }, []);
-
-    // if (!userData) {
-    //   return <div>Loading...</div>;
-    // }
-
-    // const { firstName, lastName, email, address, dob, gender, backgroundCheckStatus } = userData;
-
-
 
     return (
       <div>
         <HeaderDriver></HeaderDriver>
-        <h1>Profile Page</h1>
-        Currently Logged In as: {username}
-        {/* Add your code here*/}
+
         <div className='profile-container'>
           <div className="profile-info">
             <h1>{firstName} {lastName}'s Profile</h1>
