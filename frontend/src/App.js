@@ -48,7 +48,7 @@ function App() {
             <Route path="/editProfileRider" Component={EditprofileRider}></Route>
             <Route path="/headerRider" Component={HeaderRider}></Route>
             <Route path="/mytripsRider" Component={MyTripsRider}></Route>
-            <Route path="/availableRoutesRider" Component={availableRoutesRider}></Route>
+            <Route path="/availableTripsRider" Component={availableRoutesRider}></Route>
             <Route path="/routeSelectionConfirmationRider" Component={RouteSelectionConfirmationRider}></Route>
             {/* <Route path="/allRoutesRider" Component={AllRoutesRider}></Route> */}
             <Route path="/notificationsRider" Component={NotificationsRider}></Route>

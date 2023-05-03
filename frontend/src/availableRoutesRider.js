@@ -2,20 +2,33 @@ import HeaderRider from "./headerRider";
 import './headerRider.css'
 import './index.css'
 import './mytripsRider.css'
-// import './availableRoutesRider.css'
+
 import { Link } from "react-router-dom";
 import { Auth } from 'aws-amplify';
 import { useState, useEffect } from 'react';
 
 function AvailableRoutesRider() {
-  // TODO: Get data from database
 
   const [data, setData] = useState([]);
   const [available_trips, setAvailableTrips] = useState([]);
 
   useEffect(() => {
+    Auth.currentAuthenticatedUser()
+    .then(user => {
+      console.log('Authenticated user:', user.username);
+      user.getSession((err, session) => {
+        if(err) {
+          throw new Error(err);
+        }
+        console.log(session);
+        const sessionToken = session.getIdToken().jwtToken;
+      
     // Make the fetch request for all available trips
-    fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?available=true')
+    fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?available=true', {
+      headers: {
+        Authorization: `Bearer ${sessionToken}`
+      }
+    })
       .then(response => response.json())
       .then(data => {
         setData(data['body']);
@@ -29,6 +42,9 @@ function AvailableRoutesRider() {
       .catch(error => {
         console.log(error);
       });
+      })
+
+    })
 
     }, []);
 

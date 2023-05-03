@@ -17,9 +17,18 @@ function MyTripsRider() {
     .then(user => {
       console.log('Authenticated user:', user.username);
       const username = user.username;
+      user.getSession((err, session) => {
+        if(err) {
+          throw new Error(err);
+        }
+        console.log(session);
+        const sessionToken = session.getIdToken().jwtToken;
 
-      // Make the fetch request with the updated username value
-      fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?username=' + username + '&rider=true')
+      fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?username=' + username + '&rider=true', {
+        headers: {
+          Authorization: `Bearer ${sessionToken}`
+        }
+      })
         .then(response => response.json())
         .then(data => {
           setData(data['body']);
@@ -31,7 +40,7 @@ function MyTripsRider() {
           console.log(error);
         });
     })
-    .catch(error => console.log('Error getting authenticated user:', error));
+  }) 
   }, []);
 
   return (

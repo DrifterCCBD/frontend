@@ -108,14 +108,6 @@ function EditprofileDriver() {
       return false;
     }
   
-    // if (!userData) {
-    //   return <div>Loading...</div>;
-    // }
-  
-
-    // TODO: get rid of hardcoded values
-
-  
     return (
       <div>
         <HeaderDriver />

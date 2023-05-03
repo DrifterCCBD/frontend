@@ -14,9 +14,9 @@ function HeaderRider() {
       </Link>
       <nav>
         <Link
-          to="/availableRoutesRider"
-          className={location.pathname === "/availableRoutesRider" ? "active" : ""}>
-          All trips
+          to="/availableTripsRider"
+          className={location.pathname === "/availableTripsRider" ? "active" : ""}>
+          Available trips
         </Link>
         <Link
           to="/mytripsRider"
