@@ -41,7 +41,7 @@ const UserInfo = () => {
         }
         const username = auth_user.username
         const sessionToken = session.getIdToken().jwtToken;
-        const submitValues = {username: username, firstName: firstName, lastName: lastName, addres: address, city: city, country: country, zip: zip, dob: dateOfBirth, gender: gender}
+        const submitValues = {firstName: firstName, lastName: lastName, address: address, city: city, country: country, zip: zip, dob: dateOfBirth, gender: gender}
         
         axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/' + username, submitValues,
         {headers: {
@@ -62,10 +62,8 @@ const UserInfo = () => {
 
       })
 
-    
-
     if (user === 'Rider'){
-      window.location.href = '/addRiderInfo';
+      window.location.href = '/addPaymentMethod';
     }
     else if (user === 'Driver'){
       window.location.href = '/addDriverInfo';
