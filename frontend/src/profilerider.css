@@ -34,3 +34,39 @@
   }
 
 
+/* Style the profile information container */
+.profile-payment-container {
+  max-width: 800px;
+  margin: 0 auto;
+  margin-top: 10rem;
+  padding: 20px;
+  background-color: rgb(95, 140, 64, 0.3);
+  text-align: center;
+  border-radius: 3px;
+}
+  
+
+/* Style the profile information */
+.profile-payment-info {
+    margin-top: 20px;
+  }
+  
+.profile-payment-info h1 {
+    font-size: 24px;
+    font-weight: bold;
+    margin-bottom: 10px;
+  }
+  
+.profile-payment-info p {
+    margin-bottom: 5px;
+  }
+  
+.profile-payment-info p strong {
+    font-weight: bold;
+  }
+  
+.profile-payment-info p:last-child {
+    margin-bottom: 0;
+  }
+
+
