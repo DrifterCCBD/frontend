@@ -7,11 +7,19 @@ import { Auth } from 'aws-amplify';
 import axios from 'axios';
 
 function ProfileRider() {
+
+
+
   const [username, setUsername] = useState('');
   const [profileInfo, setProfileInfo] = useState('');
   const [jwtToken, setJWTToken] = useState('');
   const [firstName, setFirstName] = useState(''); 
   const [lastName, setLastName] = useState(''); 
+  const [cardFirstName, setCardFirstName] = useState(''); 
+  const [cardLastName, setCardLastName] = useState(''); 
+  const [cardLastFour, setCardLastFour] = useState('');
+  const [cardId, setCardID] = useState('');  
+  const [paymentMethods, setPaymentMethods] = useState([]);  
   const [email, setEmail] = useState(''); 
   const [address, setAddress] = useState(''); 
   const [dob, setDOB] = useState(''); 
@@ -27,6 +35,7 @@ function ProfileRider() {
         }
         console.log(session);
         const sessionToken = session.getIdToken().jwtToken;
+        setJWTToken(sessionToken)
         // https://technology.customink.com/blog/2019/08/16/authorization-with-api-gateway-and-congito/
         axios
         .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/' + user.username, {
@@ -52,6 +61,21 @@ function ProfileRider() {
         .catch((err) => {
             console.error('Error:', err);
         });
+        axios
+        .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/payment', {
+          headers: {
+            "Authorization": sessionToken
+          }
+        })
+        .then((res) => {
+          console.log(res);
+          if(res.data.length > 0) {
+            setPaymentMethods(res.data);
+          }
+        })
+        .catch((err) => {
+            console.error('Error:', err);
+        });
       })      
     })
   }, []);
@@ -62,6 +86,24 @@ function ProfileRider() {
     const dob = 'Aug 18st 1998'
     const gender = 'Male'
     const backgroundCheckStatus = 'Approved'*/
+    function deletePaymentMethod(payment_id) {
+
+      // https://technology.customink.com/blog/2019/08/16/authorization-with-api-gateway-and-congito/
+      axios
+      .delete('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/payment/' + payment_id, {
+        headers: {
+          "Authorization": jwtToken
+        }
+      })
+      .then((res) => {
+          console.log(res);
+          document.getElementById("payment_method_"+payment_id).remove();
+      })
+      .catch((err) => {
+          console.error('Error:', err);
+      });
+    }
+
 
     return (
       <div>
@@ -78,6 +120,26 @@ function ProfileRider() {
           </div>
           <Link to="/editprofileRider">
             <button className="edit-btn">Edit</button>
+          </Link>
+        </div>
+        <div className='profile-payment-container'>
+          <div className="profile-payment-info">
+            
+            <ul>
+              {
+                paymentMethods.map(function(paymentMethod) {
+                  return (
+                    <li id={"payment_method_"+paymentMethod.payment_id}>
+                      {paymentMethod.first_name} {paymentMethod.last_name} ({paymentMethod.last_four})
+                        <button className="edit-btn" onClick={() => deletePaymentMethod(paymentMethod.payment_id)}>Delete Payment Method</button>
+                    </li>
+                  )
+                })
+              }
+            </ul>
+          </div>
+          <Link to="/addPaymentMethod">
+            <button className="edit-btn">Add New Payment</button>
           </Link>
         </div>
       </div>
