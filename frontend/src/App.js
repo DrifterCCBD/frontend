@@ -14,6 +14,7 @@ import chooseRouteDriver from './chooseRouteDriver';
 import EditprofileDriver from './editProfileDriver';
 import ProfileRider from './profileRider';
 import EditprofileRider from './editProfileRider';
+import AddPaymentMethod from './addPaymentMethod';
 import HeaderRider from './headerRider';
 import MyTripsRider from './mytripsRider';
 import availableRoutesRider from './availableRoutesRider';
@@ -47,6 +48,7 @@ function App() {
             <Route path="/editprofileDriver" Component={EditprofileDriver}></Route>
             {/* Rider */}
             <Route path="/profileRider" Component={ProfileRider}></Route>
+            <Route path="/addPaymentMethod" Component={AddPaymentMethod}></Route>
             <Route path="/editProfileRider" Component={EditprofileRider}></Route>
             <Route path="/headerRider" Component={HeaderRider}></Route>
             <Route path="/mytripsRider" Component={MyTripsRider}></Route>
