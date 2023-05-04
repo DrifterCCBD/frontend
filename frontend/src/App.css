@@ -39,13 +39,14 @@ button:hover{
 
 .frontpage-title{
   font-weight: 20rem;
-  font-size: 10rem;
+  font-size: 6rem;
   margin: 0;
   margin-top: 5rem;
 }
 
 .frontpage-undertitle{
-  font-size: 4rem;
+  font-size: 3rem;
+  margin-top: 0;
 }
 
 .frontpage{
@@ -61,7 +62,7 @@ button:hover{
 }
 
 .frontpage-button{
-  font-size: 7rem;
+  font-size: 4rem;
   margin: 1rem;
   border-radius: 0.25rem;
   border: none;
