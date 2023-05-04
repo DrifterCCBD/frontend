@@ -67,6 +67,9 @@ function CreateTripDriver() {
           <label for="number">Max capacity:</label>
           <input type="number" id="number" name="number" required/>
 
+          <label for="number">Price (USD):</label>
+          <input type="number" id="number" name="number" required/>
+
 
           <input type="submit" value="Create trip"/>
 
