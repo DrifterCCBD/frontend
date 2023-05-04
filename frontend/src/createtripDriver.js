@@ -31,7 +31,7 @@ function CreateTripDriver() {
 
           headers: {
             'Content-Type': 'application/json',
-            'Authorization': `Bearer ${sessionToken}`
+            'Authorization': sessionToken
           },
           body: JSON.stringify(tripData)
           })

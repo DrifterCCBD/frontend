@@ -31,7 +31,7 @@ function MyTrips() {
         // Make the fetch request with the updated username value
         fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?username=' + username + '&rider=false', {
           headers: {
-            Authorization: `Bearer ${accessToken}`
+            Authorization: accessToken
           }
         })
           .then(response => response.json())

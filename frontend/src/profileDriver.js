@@ -55,6 +55,21 @@ function ProfileDriver() {
         .catch((err) => {
             console.error('Error:', err);
         });
+
+        axios
+        .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver', {
+          headers: {
+            "Authorization": sessionToken
+          }
+        })
+        .then((res => {
+          console.log('res from driver endpoint', res)
+          user = res.data[0]
+          console.log(user)
+          if(res.data.length>0){
+            setBackgroundCheckStatus(user['background_check_complete'])
+          }
+        }))
       })      
     })
   }, []);

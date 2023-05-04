@@ -26,7 +26,7 @@ function MyTripsRider() {
 
       fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?username=' + username + '&rider=true', {
         headers: {
-          Authorization: `Bearer ${sessionToken}`
+          Authorization: sessionToken
         }
       })
         .then(response => response.json())

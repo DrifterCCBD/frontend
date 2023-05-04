@@ -26,7 +26,7 @@ function AvailableRoutesRider() {
     // Make the fetch request for all available trips
     fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?available=true', {
       headers: {
-        Authorization: `Bearer ${sessionToken}`
+        Authorization: sessionToken
       }
     })
       .then(response => response.json())
