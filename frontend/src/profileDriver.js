@@ -19,6 +19,12 @@ function ProfileDriver() {
   const [gender, setGender] = useState(''); 
   const [backgroundCheckStatus, setBackgroundCheckStatus] = useState(''); 
 
+  const [driversLicense, setDriversLicense] = useState('');
+  const [carLicensePlate, setCarLicensePlate] = useState('');
+  const [carColor, setCarColor] = useState('');
+  const [carModel, setCarModel] = useState('');
+  const [ssn, setSsn] = useState('');
+
   useEffect(() => {
     Auth.currentAuthenticatedUser()
     .then( user => {
@@ -63,13 +69,22 @@ function ProfileDriver() {
           }
         })
         .then((res => {
-          console.log('res from driver endpoint', res)
-          user = res.data[0]
-          console.log(user)
-          if(res.data.length>0){
-            setBackgroundCheckStatus(user['background_check_complete'])
-          }
+          const background = res['data']
+          setBackgroundCheckStatus(background['background_check_complete'])
+          
         }))
+
+        axios
+        .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car', {
+          headers: {
+            "Authorization": sessionToken
+          }
+        })
+        .then((res => {
+          console.log(res)
+          // TODO: get car info into variables
+        }))
+
       })      
     })
   }, []);
@@ -87,6 +102,12 @@ function ProfileDriver() {
             <p>Date of Birth: {dob}</p>
             <p>Gender: {gender}</p>
             <p>Background Check Status: {backgroundCheckStatus}</p>
+            <p>Drivers license number: {driversLicense}</p>
+            <p>SSN: {ssn}</p>
+            <p>Car license plate: {carLicensePlate}</p>
+            <p>Car color: {carColor}</p>
+            <p>Car model: {carModel}</p>
+            
           </div>
           <Link to="/editprofileDriver">
             <button className="edit-btn">Edit</button>
