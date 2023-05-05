@@ -26,7 +26,7 @@ function EditprofileDriver() {
   });
 
   const [carFormValues, setCarFormValues] = useState({
-    carLicense: "",
+    carLicensePlate: "",
     carColor: "",
     carModel: ""
   })
@@ -91,7 +91,7 @@ function EditprofileDriver() {
           const car = res.data
           console.log("car is", car)
           setCarFormValues({
-            carLicense: car.car_license_no != null ? car.car_license_no : "",
+            carLicensePlate: car.car_license_no != null ? car.car_license_no : "",
             carColor: car.car_color != null ? car.car_color : "",
             carModel: car.car_model != null ? car.car_model : ""
           });
@@ -155,7 +155,7 @@ function EditprofileDriver() {
         }
       );
     
-      const updateDriver = axios.put(
+      const updateDriver = axios.post(
         "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/",
         { ...driverFormValues },
         {
@@ -200,83 +200,7 @@ function EditprofileDriver() {
       return false;
     }
     
-  
-  
-    // function handleSubmit(event) {
-    //   event.preventDefault();
-    //   setIsSubmitting(true);
-    //   const personalValues = {...personalFormValues}
-    //   delete personalValues.email
 
-    //   console.log("handlesubmit", personalValues)
-      
-    //   axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/' + username, personalValues,
-    //   {headers: {
-    //     "Authorization": userToken
-    //   }}
-    //   )
-    //     .then(response => {
-    //       if (!response.ok) {
-    //         throw new Error('Failed to update user information');
-    //       }
-    //       setSubmitSuccess(true);
-    //     })
-    //     .catch(error => {
-    //       setSubmitError(error.message);
-    //       alert("Error saving user information. Please make sure you entered everything correctly and try again")
-    //     })
-    //     .finally(() => {
-    //       setIsSubmitting(false);
-    //       window.location.href = '/profileDriver';
-    //     });
-
-    //     const driverValues = {...driverFormValues}
-      
-    //     axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/', driverValues,
-    //     {headers: {
-    //       "Authorization": userToken
-    //     }}
-    //     )
-    //       .then(response => {
-    //         if (!response.ok) {
-    //           throw new Error('Failed to update driver information');
-    //         }
-    //         setSubmitSuccess(true);
-    //       })
-    //       .catch(error => {
-    //         setSubmitError(error.message);
-    //         alert("Error saving ssn or driver's license number. Please make sure you entered everything correctly and try again")
-    //       })
-    //       .finally(() => {
-    //         setIsSubmitting(false);
-    //         window.location.href = '/profileDriver';
-    //       });
-      
-    //     const carValues = {...carFormValues}
-    //     axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car', carValues,
-    //     {headers: {
-    //       "Authorization": userToken
-    //     }}
-    //     )
-    //       .then(response => {
-    //         if (!response.ok) {
-    //           throw new Error('Failed to update car information');
-    //         }
-    //         setSubmitSuccess(true);
-    //       })
-    //       .catch(error => {
-    //         setSubmitError(error.message);
-    //         alert("Error saving car information. Please make sure you entered everything correctly and try again")
-    //       })
-    //       .finally(() => {
-    //         setIsSubmitting(false);
-    //         window.location.href = '/profileDriver';
-    //       });
-  
-
-    //   return false;
-    // }
-  
 
   
     return (
@@ -327,23 +251,23 @@ function EditprofileDriver() {
             </div>
             <div className="form-group">
               <label htmlFor="driversLicense">Drivers license number:</label>
-              <input type="text" id="driversLicense" name="dl" value={driverFormValues.driversLicense} onChange={handleInputChangeDriver} required />
+              <input type="text" id="driversLicense" name="driversLicense" value={driverFormValues.driversLicense} onChange={handleInputChangeDriver} required />
             </div>
             <div className="form-group">
               <label htmlFor="ssn">SSN:</label>
-              <input type="text" id="ssn" name="cc" value={driverFormValues.ssn} onChange={handleInputChangeDriver} required />
+              <input type="text" id="ssn" name="ssn" value={driverFormValues.ssn} onChange={handleInputChangeDriver} required />
             </div>
             <div className="form-group">
-              <label htmlFor="carLicense">Car license plate:</label>
-              <input type="text" id="carLicense" name="cl" value={carFormValues.carLicense} onChange={handleInputChangeCar} required />
+              <label htmlFor="carLicensePlate">Car license plate:</label>
+              <input type="text" id="carLicensePlate" name="carLicensePlate" value={carFormValues.carLicensePlate} onChange={handleInputChangeCar} required />
             </div>
             <div className="form-group">
               <label htmlFor="carColor">Car color:</label>
-              <input type="text" id="carColor" name="cc" value={carFormValues.carColor} onChange={handleInputChangeCar} required />
+              <input type="text" id="carColor" name="carColor" value={carFormValues.carColor} onChange={handleInputChangeCar} required />
             </div>
             <div className="form-group">
               <label htmlFor="carModel">Car model:</label>
-              <input type="text" id="carModel" name="cc" value={carFormValues.carModel} onChange={handleInputChangeCar} required />
+              <input type="text" id="carModel" name="carModel" value={carFormValues.carModel} onChange={handleInputChangeCar} required />
             </div>
 
             <div>
