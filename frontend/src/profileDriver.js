@@ -70,10 +70,14 @@ function ProfileDriver() {
         })
         .then((res => {
           console.log(res)
-          const background = res['data']
-          setBackgroundCheckStatus(background['background_check_complete'])
-          
+          const data = res['data']
+          setBackgroundCheckStatus(data['background_check_complete'])
+          setDriversLicense(data['dln'])
+          setSsn(data['ssn'])
         }))
+        .catch((err) => {
+          console.error('Error: ', err)
+        })
 
         axios
         .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car', {
@@ -83,9 +87,15 @@ function ProfileDriver() {
         })
         .then((res => {
           console.log(res)
-          // TODO: get car info into variables
+          const data = res['data']
+          setCarColor(data['car_color'])
+          setCarModel(data['car_model'])
+          setCarLicensePlate(data['car_license_no'])
           
         }))
+        .catch((err) => {
+          console.error('Error: ', err)
+        })
 
       })      
     })

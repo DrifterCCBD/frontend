@@ -22,7 +22,7 @@ const DriverInfo = () => {
           if (err) {
             throw new Error(err);
           }
-          const username = auth_user.username;
+
           const sessionToken = session.getIdToken().jwtToken;
           const carsubmitValues = {carLicensePlate: carLicensePlate, carColor: carColor, carModel: carModel};
           const driverSubmitValues = {driversLicense: driversLicense, ssn: ssn};
@@ -51,7 +51,7 @@ const DriverInfo = () => {
               window.location.href = '/mytripsDriver';
             })
             .catch(error => {
-              alert("Failed to add driver or car information. Make sure your Driver's license number is 8 digits and SSN is 9 numbers");
+              alert("Failed to add driver or car information. Please make sure your Driver's license number is 8 digits and SSN is 9 numbers");
               console.log(error.message);
             });
         });
