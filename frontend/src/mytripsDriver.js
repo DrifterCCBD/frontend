@@ -4,6 +4,12 @@ import './index.css'
 import './mytripsDriver.css'
 import { Link } from "react-router-dom";
 import { useState, useEffect } from 'react';
+import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
+import { faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+
+import { Tooltip, IconButton } from '@mui/material';
+import {InfoOutlined} from '@mui/icons-material';
+
 
 import { Auth } from 'aws-amplify';
 
@@ -13,7 +19,7 @@ function MyTrips() {
   const [data, setData] = useState([]);
   const [future_trips, setFutureTrips] = useState([]);
   const [past_trips, setPastTrips] = useState([]);
-  
+
 
   useEffect(() => {
 
@@ -65,27 +71,49 @@ function MyTrips() {
             <th>Trip ID</th>
             <th>Origin</th>
             <th>Destination</th>
-            <th>Rider</th>
+            <th>Riders</th>
             <th>Date & time</th>
+            <th>Max capacity</th>
+            <th>Current capacity</th>
+            <th>Price (USD)</th>
+            <th>Edit</th>
           </thead>
           <tbody>
-            {future_trips.map(item => (
-              <tr key={item.id}>
-                {Object.keys(item).map(key => (
-                  <td key={key}>{item[key]}</td>
-                ))}
-              </tr>
+          {future_trips.map(item => (
+          <tr key={item.id}>
+            {Object.keys(item).map(key => (
+              <td key={key}>{item[key]}</td>
             ))}
+            {item.rider_usernames === null ? (
+              <td>
+                <Link to={`/editTripDriver?id=${item.trip_id}`}>
+                  <FontAwesomeIcon className="edit-icon" icon={faEdit}/>
+                </Link>
+              </td>
+            ) : (
+              <td>
+                <Tooltip title="You can't change trips with riders">
+                <IconButton>
+                  <InfoOutlined className="info-button"/>
+                </IconButton>
+              </Tooltip>
+              </td>
+            )}
+          </tr>
+        ))}
           </tbody>
         </table>
         <h3>Past trips</h3>
         <table className="mytrips-table">
           <thead>
-            <th>Trip ID</th>
+          <th>Trip ID</th>
             <th>Origin</th>
             <th>Destination</th>
-            <th>Rider</th>
+            <th>Riders</th>
             <th>Date & time</th>
+            <th>Max capacity</th>
+            <th>Number of riders</th>
+            <th>Price per rider (USD)</th>
           </thead>
           <tbody>
             {past_trips.map(item => (
