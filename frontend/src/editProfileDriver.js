@@ -88,13 +88,12 @@ function EditprofileDriver() {
           }
         })
         .then((res) => {
-          console.log(res)
-          const car = res.data[0]
+          const car = res.data
           console.log("car is", car)
           setCarFormValues({
-            carLicense: car.carLicense != null ? car.carLicense : "",
-            carColor: car.carColor != null ? car.carColor : "",
-            carModel: car.carModel != null ? car.carModel : ""
+            carLicense: car.car_license_no != null ? car.car_license_no : "",
+            carColor: car.car_color != null ? car.car_color : "",
+            carModel: car.car_model != null ? car.car_model : ""
           });
 
         })
@@ -107,13 +106,11 @@ function EditprofileDriver() {
           }
         })
         .then((res) => {
-          console.log(res)
-
-          const driver = res.data[0]
+          const driver = res.data
           console.log("driver is", driver)
 
           setDriverFormValues({
-            driversLicense: driver.driversLicense != null ? driver.driversLicense : "",
+            driversLicense: driver.dln != null ? driver.dln : "",
             ssn: driver.ssn != null ? driver.ssn : "",
           });
 
@@ -138,79 +135,147 @@ function EditprofileDriver() {
       const { name, value } = event.target;
       setDriverFormValues({ ...driverFormValues, [name]: value });
     }
-  
-  
+
+
     function handleSubmit(event) {
       event.preventDefault();
       setIsSubmitting(true);
-      const personalValues = {...personalFormValues}
-      delete personalValues.email
-
-      console.log("handlesubmit", personalValues)
-      
-      axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/' + username, personalValues,
-      {headers: {
-        "Authorization": userToken
-      }}
-      )
-        .then(response => {
-          if (!response.ok) {
-            throw new Error('Failed to update user information');
+      const personalValues = { ...personalFormValues };
+      delete personalValues.email;
+    
+      console.log("handlesubmit", personalValues);
+    
+      const updatePersonal = axios.put(
+        "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/" + username,
+        personalValues,
+        {
+          headers: {
+            Authorization: userToken,
+          },
+        }
+      );
+    
+      const updateDriver = axios.put(
+        "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/",
+        { ...driverFormValues },
+        {
+          headers: {
+            Authorization: userToken,
+          },
+        }
+      );
+    
+      const updateCar = axios.put(
+        "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car",
+        { ...carFormValues },
+        {
+          headers: {
+            Authorization: userToken,
+          },
+        }
+      );
+    
+      Promise.all([updatePersonal, updateDriver, updateCar])
+        .then((responses) => {
+          const failedRequests = responses.filter(
+            (response) => response.status !== 200
+          );
+          if (failedRequests.length === 0) {
+            setSubmitSuccess(true);
+            window.location.href = "/profileDriver";
+          } else {
+            throw new Error("Failed to update user information");
           }
-          setSubmitSuccess(true);
         })
-        .catch(error => {
+        .catch((error) => {
           setSubmitError(error.message);
+          alert(
+            "Error saving user information. Please make sure you entered everything correctly and try again"
+          );
         })
         .finally(() => {
           setIsSubmitting(false);
-          window.location.href = '/profileDriver';
         });
-
-        const driverValues = {...driverFormValues}
-      
-        axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/', driverValues,
-        {headers: {
-          "Authorization": userToken
-        }}
-        )
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Failed to update driver information');
-            }
-            setSubmitSuccess(true);
-          })
-          .catch(error => {
-            setSubmitError(error.message);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-            window.location.href = '/profileDriver';
-          });
-      
-        const carValues = {...carFormValues}
-        axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car', carValues,
-        {headers: {
-          "Authorization": userToken
-        }}
-        )
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Failed to update car information');
-            }
-            setSubmitSuccess(true);
-          })
-          .catch(error => {
-            setSubmitError(error.message);
-          })
-          .finally(() => {
-            setIsSubmitting(false);
-            window.location.href = '/profileDriver';
-          });
-  
-
+    
       return false;
     }
+    
+  
+  
+    // function handleSubmit(event) {
+    //   event.preventDefault();
+    //   setIsSubmitting(true);
+    //   const personalValues = {...personalFormValues}
+    //   delete personalValues.email
+
+    //   console.log("handlesubmit", personalValues)
+      
+    //   axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/' + username, personalValues,
+    //   {headers: {
+    //     "Authorization": userToken
+    //   }}
+    //   )
+    //     .then(response => {
+    //       if (!response.ok) {
+    //         throw new Error('Failed to update user information');
+    //       }
+    //       setSubmitSuccess(true);
+    //     })
+    //     .catch(error => {
+    //       setSubmitError(error.message);
+    //       alert("Error saving user information. Please make sure you entered everything correctly and try again")
+    //     })
+    //     .finally(() => {
+    //       setIsSubmitting(false);
+    //       window.location.href = '/profileDriver';
+    //     });
+
+    //     const driverValues = {...driverFormValues}
+      
+    //     axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/', driverValues,
+    //     {headers: {
+    //       "Authorization": userToken
+    //     }}
+    //     )
+    //       .then(response => {
+    //         if (!response.ok) {
+    //           throw new Error('Failed to update driver information');
+    //         }
+    //         setSubmitSuccess(true);
+    //       })
+    //       .catch(error => {
+    //         setSubmitError(error.message);
+    //         alert("Error saving ssn or driver's license number. Please make sure you entered everything correctly and try again")
+    //       })
+    //       .finally(() => {
+    //         setIsSubmitting(false);
+    //         window.location.href = '/profileDriver';
+    //       });
+      
+    //     const carValues = {...carFormValues}
+    //     axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car', carValues,
+    //     {headers: {
+    //       "Authorization": userToken
+    //     }}
+    //     )
+    //       .then(response => {
+    //         if (!response.ok) {
+    //           throw new Error('Failed to update car information');
+    //         }
+    //         setSubmitSuccess(true);
+    //       })
+    //       .catch(error => {
+    //         setSubmitError(error.message);
+    //         alert("Error saving car information. Please make sure you entered everything correctly and try again")
+    //       })
+    //       .finally(() => {
+    //         setIsSubmitting(false);
+    //         window.location.href = '/profileDriver';
+    //       });
+  
+
+    //   return false;
+    // }
   
 
   
