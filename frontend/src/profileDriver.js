@@ -71,7 +71,7 @@ function ProfileDriver() {
         .then((res => {
           console.log(res)
           const data = res['data']
-          setBackgroundCheckStatus(data['background_check_complete'])
+          setBackgroundCheckStatus((data['background_check_complete']).toString())
           setDriversLicense(data['dln'])
           setSsn(data['ssn'])
         }))
