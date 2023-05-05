@@ -15,13 +15,6 @@ const DriverInfo = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-    console.log({
-        driversLicense,
-        carLicensePlate,
-        carColor,
-        carModel,
-        ssn,
-    });
 
     Auth.currentAuthenticatedUser()
     .then( auth_user => {
@@ -31,24 +24,36 @@ const DriverInfo = () => {
         }
         const username = auth_user.username
         const sessionToken = session.getIdToken().jwtToken;
-        const submitValues = {username: username, driversLicense: driversLicense, carLicensePlate: carLicensePlate, carColor: carColor, carModel: carModel, ssn: ssn}
+        const carsubmitValues = {carLicensePlate: carLicensePlate, carColor: carColor, carModel: carModel}
+        const driverSubmitValues = {driversLicense: driversLicense, ssn: ssn}
         
-        axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car', submitValues,
-            {
-                headers: {
+        axios.post('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car', carsubmitValues, {
+            headers: {
             "Authorization": sessionToken
             }
-        }
-        )
+        })
           .then(response => {
             if (!response.ok) {
-              throw new Error('Failed to add user information');
+              throw new Error('Failed to add car information');
             }
-
           })
           .catch(error => {
             console.log(error.message);
           })
+
+        axios.post('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/', driverSubmitValues, {
+            headers: {
+                "Authorization": sessionToken
+                }
+        })
+        .then(response => {
+            if (!response.ok) {
+                throw new Error('Failed to add driver information');
+              }
+        })
+        .catch(error => {
+            console.log(error.message);
+        })
 
         })
 
@@ -89,6 +94,7 @@ const DriverInfo = () => {
         SSN:
         <input type="text" value={ssn} onChange={(e) => setSsn(e.target.value)} required/>
         </label>
+
         <div>
         <Link to="/">
           <button>Back</button>

@@ -12,7 +12,8 @@ function EditprofileDriver() {
   const [userData, setUserData] = useState({});
   const [userToken, setUserToken] = useState("");
   const [username, setUsername] = useState('');
-  const [formValues, setFormValues] = useState({
+  const [carData, setCarData] = useState({});
+  const [personalFormValues, setPersonalFormValues] = useState({
     firstName: "",
     lastName: "",
     email: "",
@@ -21,8 +22,19 @@ function EditprofileDriver() {
     country: "",
     zip: "",
     dob: "",
-    gender:  "",
+    gender:  ""
   });
+  
+  const [carFormValues, setCarFormValues] = useState({
+    carLicense: "",
+    carColor: "",
+    carModel: ""
+  })
+
+  const [driverFormValues, setDriverFormValues] = useState({
+    driversLicense: "",
+    ssn: ""
+  })
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(null);
@@ -52,7 +64,7 @@ function EditprofileDriver() {
               user = res.data[0]
               console.log("user is", user)
               setUserData(user);
-              setFormValues({
+              setPersonalFormValues({
                 firstName: user.first_name != null ? user.first_name : "",
                 lastName: user.last_name != null ? user.last_name : "",
                 email: user.email != null ? user.email : "",
@@ -68,26 +80,75 @@ function EditprofileDriver() {
         .catch((err) => {
             console.error('Error:', err);
         });
-      })      
+
+        axios
+        .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car', {
+          headers: {
+            "Authorization": sessionToken
+          }
+        })
+        .then((res) => {
+          console.log(res)
+          const car = res.data[0]
+          console.log("car is", car)
+          setCarFormValues({
+            carLicense: car.carLicense != null ? car.carLicense : "",
+            carColor: car.carColor != null ? car.carColor : "",
+            carModel: car.carModel != null ? car.carModel : ""
+          });
+
+        })
+
+
+        axios
+        .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver', {
+          headers: {
+            "Authorization": sessionToken
+          }
+        })
+        .then((res) => {
+          console.log(res)
+
+          const driver = res.data[0]
+          console.log("driver is", driver)
+
+          setDriverFormValues({
+            driversLicense: driver.driversLicense != null ? driver.driversLicense : "",
+            ssn: driver.ssn != null ? driver.ssn : "",
+          });
+
+        })
+
+      })
     })
   }, []);
     
 
-  
-
-  
-    function handleInputChange(event) {
+    function handleInputChangePersonal(event) {
       const { name, value } = event.target;
-      setFormValues({ ...formValues, [name]: value });
+      setPersonalFormValues({ ...personalFormValues, [name]: value });
     }
+
+    function handleInputChangeCar(event) {
+      const { name, value } = event.target;
+      setCarFormValues({ ...carFormValues, [name]: value });
+    }
+
+    function handleInputChangeDriver(event) {
+      const { name, value } = event.target;
+      setDriverFormValues({ ...driverFormValues, [name]: value });
+    }
+  
   
     function handleSubmit(event) {
       event.preventDefault();
       setIsSubmitting(true);
-      const submitValues = {...formValues}
-      delete submitValues.email
-      console.log("handlesubmit", submitValues)
-      axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/' + username, submitValues,
+      const personalValues = {...personalFormValues}
+      delete personalValues.email
+
+      console.log("handlesubmit", personalValues)
+      
+      axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/' + username, personalValues,
       {headers: {
         "Authorization": userToken
       }}
@@ -108,12 +169,6 @@ function EditprofileDriver() {
       return false;
     }
   
-    // if (!userData) {
-    //   return <div>Loading...</div>;
-    // }
-  
-
-    // TODO: get rid of hardcoded values
 
   
     return (
@@ -123,45 +178,66 @@ function EditprofileDriver() {
           <form onSubmit={handleSubmit}>
             <div className="form-group">
               <label htmlFor="firstName">First Name:</label>
-              <input type="text" id="firstName" name="firstName" value={formValues.firstName} onChange={handleInputChange} required />
+              <input type="text" id="firstName" name="firstName" value={personalFormValues.firstName} onChange={handleInputChangePersonal} required />
             </div>
             <div className="form-group">
               <label htmlFor="lastName">Last Name:</label>
-              <input type="text" id="lastName" name="lastName" value={formValues.lastName} onChange={handleInputChange} required />
+              <input type="text" id="lastName" name="lastName" value={personalFormValues.lastName} onChange={handleInputChangePersonal} required />
             </div>
             <div className="form-group">
               <label htmlFor="email">Email:</label>
-              <input type="email" id="email" name="email" value={formValues.email} disabled="disabled" />
+              <input type="email" id="email" name="email" value={personalFormValues.email} disabled="disabled" />
             </div>
             <div className="form-group">
               <label htmlFor="address">Address:</label>
-              <input type="text" id="address" name="address" value={formValues.address} onChange={handleInputChange} required />
+              <input type="text" id="address" name="address" value={personalFormValues.address} onChange={handleInputChangePersonal} required />
             </div>
             <div className="form-group">
               <label htmlFor="city">City:</label>
-              <input type="text" id="city" name="city" value={formValues.city} onChange={handleInputChange} required />
+              <input type="text" id="city" name="city" value={personalFormValues.city} onChange={handleInputChangePersonal} required />
             </div>
             <div className="form-group">
               <label htmlFor="country">Country:</label>
-              <input type="text" id="country" name="country" value={formValues.country} onChange={handleInputChange} required />
+              <input type="text" id="country" name="country" value={personalFormValues.country} onChange={handleInputChangePersonal} required />
             </div>
             <div className="form-group">
               <label htmlFor="zip">Zip:</label>
-              <input type="text" id="zip" name="zip" value={formValues.zip} onChange={handleInputChange} required />
+              <input type="text" id="zip" name="zip" value={personalFormValues.zip} onChange={handleInputChangePersonal} required />
             </div>
             <div className="form-group">
               <label htmlFor="dob">Date of Birth:</label>
-              <input type="date" id="dob" name="dob" value={formValues.dob} onChange={handleInputChange} required />
+              <input type="date" id="dob" name="dob" value={personalFormValues.dob} onChange={handleInputChangePersonal} required />
             </div>
             <div className="form-group">
               <label htmlFor="gender">Gender:</label>
-              <select id="gender" name="gender" value={formValues.gender} onChange={handleInputChange} required>
+              <select id="gender" name="gender" value={personalFormValues.gender} onChange={handleInputChangePersonal} required>
                 <option value="">-- Please select --</option>
                 <option value="male">Male</option>
                 <option value="female">Female</option>
                 <option value="other">Other</option>
                 </select>
             </div>
+            <div className="form-group">
+              <label htmlFor="driversLicense">Drivers license number:</label>
+              <input type="text" id="driversLicense" name="dl" value={driverFormValues.driversLicense} onChange={handleInputChangeDriver} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="ssn">SSN:</label>
+              <input type="text" id="ssn" name="cc" value={driverFormValues.ssn} onChange={handleInputChangeDriver} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="carLicense">Car license plate:</label>
+              <input type="text" id="carLicense" name="cl" value={carFormValues.carLicense} onChange={handleInputChangeCar} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="carColor">Car color:</label>
+              <input type="text" id="carColor" name="cc" value={carFormValues.carColor} onChange={handleInputChangeCar} required />
+            </div>
+            <div className="form-group">
+              <label htmlFor="carModel">Car model:</label>
+              <input type="text" id="carModel" name="cc" value={carFormValues.carModel} onChange={handleInputChangeCar} required />
+            </div>
+
             <div>
             <Link to="/profileDriver">
                 <button>Back</button>
