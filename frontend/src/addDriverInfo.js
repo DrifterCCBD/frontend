@@ -43,7 +43,7 @@ const DriverInfo = () => {
           Promise.all(axiosRequests)
             .then(responses => {
               console.log(responses);
-              const failedRequests = responses.filter(response => !response.ok);
+              const failedRequests = responses.filter(response => response.status !== 200);
               if (failedRequests.length > 0) {
                 throw new Error('Failed to add driver or car information');
               }
