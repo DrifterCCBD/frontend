@@ -35,6 +35,8 @@ function EditprofileDriver() {
     driversLicense: "",
     ssn: ""
   })
+
+  const [driverData, setDriverData] = useState({});
   const [isSubmitting, setIsSubmitting] = useState(false);
   const [submitSuccess, setSubmitSuccess] = useState(false);
   const [submitError, setSubmitError] = useState(null);
@@ -108,6 +110,10 @@ function EditprofileDriver() {
         .then((res) => {
           const driver = res.data
           console.log("driver is", driver)
+          setDriverData({
+            driversLicense: driver['dln'],
+            ssn: driver['ssn']
+          });
 
           setDriverFormValues({
             driversLicense: driver.dln != null ? driver.dln : "",
@@ -136,7 +142,6 @@ function EditprofileDriver() {
       setDriverFormValues({ ...driverFormValues, [name]: value });
     }
 
-
     function handleSubmit(event) {
       event.preventDefault();
       setIsSubmitting(true);
@@ -155,15 +160,19 @@ function EditprofileDriver() {
         }
       );
     
-      const updateDriver = axios.post(
-        "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/",
-        { ...driverFormValues },
-        {
-          headers: {
-            Authorization: userToken,
-          },
-        }
-      );
+      let updateDriverPromise = Promise.resolve(); // initialize with a resolved promise
+    
+      if (JSON.stringify(driverData) !== JSON.stringify(driverFormValues)) { // check if driverData is different from driverFormValues
+        updateDriverPromise = axios.post(
+          "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/",
+          { ...driverFormValues },
+          {
+            headers: {
+              Authorization: userToken,
+            },
+          }
+        );
+      }
     
       const updateCar = axios.put(
         "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car",
@@ -175,10 +184,10 @@ function EditprofileDriver() {
         }
       );
     
-      Promise.all([updatePersonal, updateDriver, updateCar])
+      Promise.all([updatePersonal, updateDriverPromise, updateCar])
         .then((responses) => {
           const failedRequests = responses.filter(
-            (response) => response.status !== 200
+            (response) => response && response.status !== 200
           );
           if (failedRequests.length === 0) {
             setSubmitSuccess(true);
@@ -199,6 +208,71 @@ function EditprofileDriver() {
     
       return false;
     }
+    
+
+
+    // function handleSubmit(event) {
+    //   event.preventDefault();
+    //   setIsSubmitting(true);
+    //   const personalValues = { ...personalFormValues };
+    //   delete personalValues.email;
+    
+    //   console.log("handlesubmit", personalValues);
+    
+    //   const updatePersonal = axios.put(
+    //     "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/user/" + username,
+    //     personalValues,
+    //     {
+    //       headers: {
+    //         Authorization: userToken,
+    //       },
+    //     }
+    //   );
+    
+    //   const updateDriver = axios.post(
+    //     "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/",
+    //     { ...driverFormValues },
+    //     {
+    //       headers: {
+    //         Authorization: userToken,
+    //       },
+    //     }
+    //   );
+    
+    //   const updateCar = axios.put(
+    //     "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car",
+    //     { ...carFormValues },
+    //     {
+    //       headers: {
+    //         Authorization: userToken,
+    //       },
+    //     }
+    //   );
+    
+    //   Promise.all([updatePersonal, updateDriver, updateCar])
+    //     .then((responses) => {
+    //       const failedRequests = responses.filter(
+    //         (response) => response.status !== 200
+    //       );
+    //       if (failedRequests.length === 0) {
+    //         setSubmitSuccess(true);
+    //         window.location.href = "/profileDriver";
+    //       } else {
+    //         throw new Error("Failed to update user information");
+    //       }
+    //     })
+    //     .catch((error) => {
+    //       setSubmitError(error.message);
+    //       alert(
+    //         "Error saving user information. Please make sure you entered everything correctly and try again"
+    //       );
+    //     })
+    //     .finally(() => {
+    //       setIsSubmitting(false);
+    //     });
+    
+    //   return false;
+    // }
     
 
 
