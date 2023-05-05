@@ -69,6 +69,7 @@ function ProfileDriver() {
           }
         })
         .then((res => {
+          console.log(res)
           const background = res['data']
           setBackgroundCheckStatus(background['background_check_complete'])
           
@@ -83,6 +84,7 @@ function ProfileDriver() {
         .then((res => {
           console.log(res)
           // TODO: get car info into variables
+          
         }))
 
       })      

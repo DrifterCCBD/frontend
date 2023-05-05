@@ -15,56 +15,108 @@ const DriverInfo = () => {
 
   const handleSubmit = (e) => {
     e.preventDefault();
-
+  
     Auth.currentAuthenticatedUser()
-    .then( auth_user => {
-      auth_user.getSession((err, session) => {
-        if (err) {
-          throw new Error(err);
-        }
-        const username = auth_user.username
-        const sessionToken = session.getIdToken().jwtToken;
-        const carsubmitValues = {carLicensePlate: carLicensePlate, carColor: carColor, carModel: carModel}
-        const driverSubmitValues = {driversLicense: driversLicense, ssn: ssn}
-        
-        axios.post('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car', carsubmitValues, {
-            headers: {
-            "Authorization": sessionToken
-            }
-        })
-          .then(response => {
-            if (!response.ok) {
-              throw new Error('Failed to add car information');
-            }
-          })
-          .catch(error => {
-            console.log(error.message);
-          })
-
-        axios.post('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/', driverSubmitValues, {
-            headers: {
+      .then(auth_user => {
+        auth_user.getSession((err, session) => {
+          if (err) {
+            throw new Error(err);
+          }
+          const username = auth_user.username;
+          const sessionToken = session.getIdToken().jwtToken;
+          const carsubmitValues = {carLicensePlate: carLicensePlate, carColor: carColor, carModel: carModel};
+          const driverSubmitValues = {driversLicense: driversLicense, ssn: ssn};
+  
+          const axiosRequests = [
+            axios.post('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car', carsubmitValues, {
+              headers: {
                 "Authorization": sessionToken
-                }
-        })
-        .then(response => {
-            if (!response.ok) {
-                throw new Error('Failed to add driver information');
               }
-        })
-        .catch(error => {
-            console.log(error.message);
-        })
+            }),
+            axios.post('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/', driverSubmitValues, {
+              headers: {
+                "Authorization": sessionToken
+              }
+            })
+          ];
+  
+          Promise.all(axiosRequests)
+            .then(responses => {
+              console.log(responses);
+              const failedRequests = responses.filter(response => !response.ok);
+              if (failedRequests.length > 0) {
+                throw new Error('Failed to add driver or car information');
+              }
 
-        })
-
-      })
-
-      // TODO: call background check api
-
-    window.location.href = '/mytripsDriver';
-
-
+              window.location.href = '/mytripsDriver';
+            })
+            .catch(error => {
+              alert("Failed to add driver or car information. Make sure your Driver's license number is 8 digits and SSN is 9 numbers");
+              console.log(error.message);
+            });
+        });
+      });
   };
+  
+
+
+//   const handleSubmit = (e) => {
+//     e.preventDefault();
+
+//     Auth.currentAuthenticatedUser()
+//     .then( auth_user => {
+//       auth_user.getSession((err, session) => {
+//         if (err) {
+//           throw new Error(err);
+//         }
+//         const username = auth_user.username
+//         const sessionToken = session.getIdToken().jwtToken;
+//         const carsubmitValues = {carLicensePlate: carLicensePlate, carColor: carColor, carModel: carModel}
+//         const driverSubmitValues = {driversLicense: driversLicense, ssn: ssn}
+        
+//         axios.post('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car', carsubmitValues, {
+//             headers: {
+//             "Authorization": sessionToken
+//             }
+//         })
+//           .then(response => {
+//             console.log(response)
+//             // TODO: fix so that it definately only picks up errors
+//             if (response['data'] !== 'success') {
+//               throw new Error('Failed to add car information');
+//             }
+//           })
+//           .catch(error => {
+//             console.log(error.message);
+//             alert("Failed to add car information. Please make sure your data is correct and try again.")
+//           })
+
+//         axios.post('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/', driverSubmitValues, {
+//             headers: {
+//                 "Authorization": sessionToken
+//                 }
+//         })
+//         .then(response => {
+//             console.log(response)
+//             if (response['data'] !== 'success') {
+//                 throw new Error('Failed to add driver information');
+//               }
+//         })
+//         .catch(error => {
+//             alert("Failed to add driver information. Make sure your Driver's license number is 8 digits and SSN is 9 numbers")
+//             console.log(error.message);
+//         })
+
+//         })
+
+//       })
+
+//       // TODO: call background check api
+     
+//       // TODO: figure out where this should be
+//      // window.location.href = '/mytripsDriver';
+
+//   };
 
   return (
     <div>

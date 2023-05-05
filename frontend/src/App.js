@@ -10,7 +10,6 @@ import { Amplify } from 'aws-amplify';
 import { withAuthenticator, Authenticator } from '@aws-amplify/ui-react';
 import '@aws-amplify/ui-react/styles.css';
 import {default as amplifyAuth} from './awsExports';
-import chooseRouteDriver from './chooseRouteDriver';
 import EditprofileDriver from './editProfileDriver';
 import ProfileRider from './profileRider';
 import EditprofileRider from './editProfileRider';
@@ -46,7 +45,6 @@ function App() {
             <Route path="/notificationsDriver" Component={NotificationsDriver}>
             </Route>
             <Route path="/createTripDriver" Component={CreateTripDriver}></Route>
-            <Route path="/chooseRouteDriver" Component={chooseRouteDriver}></Route>
             <Route path="/editprofileDriver" Component={EditprofileDriver}></Route>
             {/* Rider */}
             <Route path="/profileRider" Component={ProfileRider}></Route>
