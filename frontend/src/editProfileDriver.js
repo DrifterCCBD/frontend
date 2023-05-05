@@ -165,7 +165,7 @@ function EditprofileDriver() {
         }
       );
     
-      const updateCar = axios.post(
+      const updateCar = axios.put(
         "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car",
         { ...carFormValues },
         {
