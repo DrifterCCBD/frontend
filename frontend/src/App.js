@@ -24,6 +24,7 @@ import Map from './map'
 import Accepted from './accepted.js'
 import UserInfo from './addUserInfo';
 import DriverInfo from './addDriverInfo';
+import EditTripDriver from './editTripDriver';
 
 Amplify.configure(amplifyAuth);
 
@@ -60,6 +61,7 @@ function App() {
             <Route path="/accepted" Component={Accepted}></Route>
             <Route path="/insertInfo" Component={UserInfo}></Route>
             <Route path="/addDriverInfo" Component={DriverInfo}></Route>
+            <Route path="/editTripDriver" Component={EditTripDriver}></Route>
           </Routes>
         </Router>
      </Authenticator>
