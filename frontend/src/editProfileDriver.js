@@ -24,7 +24,7 @@ function EditprofileDriver() {
     dob: "",
     gender:  ""
   });
-  
+
   const [carFormValues, setCarFormValues] = useState({
     carLicense: "",
     carColor: "",
@@ -166,6 +166,49 @@ function EditprofileDriver() {
           setIsSubmitting(false);
           window.location.href = '/profileDriver';
         });
+
+        const driverValues = {...driverFormValues}
+      
+        axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/', driverValues,
+        {headers: {
+          "Authorization": userToken
+        }}
+        )
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Failed to update driver information');
+            }
+            setSubmitSuccess(true);
+          })
+          .catch(error => {
+            setSubmitError(error.message);
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+            window.location.href = '/profileDriver';
+          });
+      
+        const carValues = {...carFormValues}
+        axios.put('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car', carValues,
+        {headers: {
+          "Authorization": userToken
+        }}
+        )
+          .then(response => {
+            if (!response.ok) {
+              throw new Error('Failed to update car information');
+            }
+            setSubmitSuccess(true);
+          })
+          .catch(error => {
+            setSubmitError(error.message);
+          })
+          .finally(() => {
+            setIsSubmitting(false);
+            window.location.href = '/profileDriver';
+          });
+  
+
       return false;
     }
   
