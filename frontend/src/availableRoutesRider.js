@@ -8,10 +8,6 @@ import { Auth } from 'aws-amplify';
 import { useState, useEffect } from 'react';
 import axios from "axios";
 
-
-
-
-
 function AvailableRoutesRider() {
 
   const [data, setData] = useState([]);
@@ -113,7 +109,7 @@ function AvailableRoutesRider() {
                   <td key={key}>{item[key]}</td>
                 ))}
                 <td>
-                  <button onClick={() => window.location.href=`/map?origin=${item.origin}&destination=${item.destination}`}>
+                  <button onClick={() => window.location.href=`/map?origin=${item.origin}&destination=${item.destination}&driverInfo=${item.driver_id}&car=${item.car_model}&departureTime=${item.start_time}}`}>
                     View
                   </button>
                 </td>

@@ -1,7 +1,14 @@
-.mytrips-div{
-    text-align: center;
-    margin-top: 10rem;
-    margin-bottom: 5rem;
+.mytrips-div {
+    width: 100%;
+    height: 100%;
+}
+  
+@media screen and (min-width: 768px) {
+    .mytrips-div {
+        width: 80%;
+        height: 80vh;
+        margin: 0 auto;
+    }
 }
 
 .mytrips-table{
