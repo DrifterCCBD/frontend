@@ -68,27 +68,37 @@ function EditTripDriver() {
       setTripFormValues({ ...tripFormValues, [name]: value });
     }
 
+
     function handleDelete(event) {
-      axios.delete(
-        "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip/" + tripID,
-        {
-          headers: {
-            Authorization: userToken,
-          },
-        }
-      )
-      .then((res) => {
-        if (res.status === 200){
-          alert('Trip successfully deleted')
-          window.location.href = '/mytripsDriver';
-        }
-        else {
-          alert('Trip could not be deleted');
-        }
-      })
-      .catch((err) => {
-        console.log(err)
-      })
+      event.preventDefault()
+      // eslint-disable-next-line no-restricted-globals
+      if (confirm("Are you sure you want to delete this trip?")) {
+        axios.delete(
+          "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip/" + tripID,
+          {
+            headers: {
+              Authorization: userToken,
+            },
+          }
+        )
+        .then((res) => {
+          if (res.status === 200){
+            alert('Trip successfully deleted')
+            window.location.href = '/mytripsDriver';
+          }
+          else {
+            alert('Trip could not be deleted');
+          }
+        })
+        .catch((err) => {
+          console.log(err)
+        })
+      }
+      else{
+        // do nothing
+        console.log('cancelled delete')
+      }
+
     }
 
     function handleSubmit(event) {
@@ -161,7 +171,7 @@ function EditTripDriver() {
             <Link to="/myTripsDriver">
                 <button>Back</button>
             </Link>
-            <button type="submit" onClick={handleSubmit}>Save</button>
+            <button onClick={handleSubmit}>Save</button>
             </div>
             <button onClick={handleDelete}>Delete trip</button>
         </form>
