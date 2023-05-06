@@ -69,10 +69,9 @@ function AvailableRoutesRider() {
                   <td key={key}>{item[key]}</td>
                 ))}
                 <td>
-                  Select 
-                  {/* <button onClick={() => window.location.href='/maps'}>
+                  <button onClick={() => window.location.href=`/map?origin=${item.origin}&destination=${item.destination}`}>
                     Select
-                  </button> */}
+                  </button>
                 </td>
               </tr>
             ))}
