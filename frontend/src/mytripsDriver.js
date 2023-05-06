@@ -1,11 +1,12 @@
 import HeaderDriver from "./headerDriver";
-import './headerDriver.css'
-import './index.css'
-import './mytripsDriver.css'
-import { Link } from "react-router-dom";
+import './headerDriver.css';
+import './index.css';
+import './mytripsDriver.css';
 import { useState, useEffect } from 'react';
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
-import { faEdit, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import { faEdit, faCheck, faBan, faInfoCircle } from '@fortawesome/free-solid-svg-icons'
+import axios from 'axios';
+import { Link, useNavigate} from "react-router-dom";
 
 import { Tooltip, IconButton } from '@mui/material';
 import {InfoOutlined} from '@mui/icons-material';
@@ -19,6 +20,8 @@ function MyTrips() {
   const [data, setData] = useState([]);
   const [future_trips, setFutureTrips] = useState([]);
   const [past_trips, setPastTrips] = useState([]);
+  const [pending_requests, setPendingRequests] = useState([]);
+  const [userToken, setUserToken] = useState("");
 
 
   useEffect(() => {
@@ -28,11 +31,13 @@ function MyTrips() {
     .then(user => {
       console.log('Authenticated user:', user.username);
       const username = user.username;
-
-      Auth.currentSession()
-      .then(session => {
-        const accessToken = session.getAccessToken().getJwtToken();
-        console.log('Authorization token:', accessToken);
+      user.getSession((err, session) => {
+        if(err) {
+          throw new Error(err);
+        }
+        console.log(session);
+        const accessToken = session.getIdToken().jwtToken;
+        setUserToken(accessToken);
 
         // Make the fetch request with the updated username value
         fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?username=' + username + '&rider=false', {
@@ -50,6 +55,22 @@ function MyTrips() {
           .catch(error => {
             console.log(error);
           });
+        // Make the fetch request with the updated username value
+        fetch('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip?username=' + username + '&show_pending=true', {
+          headers: {
+            Authorization: accessToken
+          }
+        })
+          .then(response => response.json())
+          .then(data => {
+            setData(data['body']);
+            const parsedData = data['body'];
+            setPendingRequests(parsedData);
+          })
+          .catch(error => {
+            console.log(error);
+          });
+          
           
       })
       .catch(error => {
@@ -60,11 +81,73 @@ function MyTrips() {
     .catch(error => console.log('Error getting authenticated user:', error));
   }, []);
 
+  const navigate = useNavigate();
+
+  const respondTripRequest = (trip_id,rider, decision) => {
+    const updateTrip = axios.put(
+      "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip/" + trip_id, {"rider_username" : rider, "accepted": decision},
+      {
+        headers: {
+          Authorization: userToken,
+        },
+      }
+    )
+    .then((res) => {
+      console.log(res)
+      if (res.data.statusCode == 500) {
+        throw new Error(res.data.body);
+      } else {
+        window.location.reload();
+      }
+      
+      })
+    .catch((error) => {
+      alert(
+        "Error:" + error
+      );
+    })
+    .finally(() => {
+
+    });
+
+  }
+
 
   return (
     <div>
       <HeaderDriver></HeaderDriver>
       <div className="mytrips-div">
+      <h3>Trip Rider Requests</h3>
+        <table className="mytrips-table">
+          <thead>
+            <th>Trip ID</th>
+            <th>Origin</th>
+            <th>Destination</th>
+            <th>Rider</th>
+            <th>Max capacity</th>
+            <th>Current number of riders</th>
+            <th>Price (USD)</th>
+            <th>Date & time</th>
+            <th></th>
+            <th></th>
+          </thead>
+          <tbody>
+          {pending_requests.map(item => (
+          <tr key={item.id}>
+            {Object.keys(item).map(key => (
+              <td key={key}>{item[key]}</td>
+            ))}
+            
+              <td>
+                  <FontAwesomeIcon onClick={() => {respondTripRequest(item.trip_id,item.request_username,true)}} className="edit-icon" icon={faCheck}/>
+              </td>
+              <td>
+                  <FontAwesomeIcon onClick={() => {respondTripRequest(item.trip_id,item.request_username,false)}} className="edit-icon" icon={faBan}/>
+              </td>
+          </tr>
+        ))}
+          </tbody>
+        </table>
         <h3>Future trips</h3>
         <table className="mytrips-table">
           <thead>
