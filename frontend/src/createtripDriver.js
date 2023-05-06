@@ -4,6 +4,7 @@ import './index.css'
 import './createTripDriver.css'
 import React, { useState } from 'react';
 import { Auth } from "aws-amplify";
+import { Link } from "react-router-dom";
 
 function CreateTripDriver() {
   const [origin, setOrigin] = useState('');
@@ -79,8 +80,14 @@ function CreateTripDriver() {
           <label for="number">Price (USD):</label>
           <input type="number" id="number" name="number" value={price} onChange={(e) => setPrice(e.target.value)} required/>
 
-
-          <input type="submit" value="Create trip"/>
+          <div>
+            <Link to="/mytripsDriver">
+              <button>Back</button>
+            </Link>
+            <input type="submit" value="Create trip"/>
+          </div>
+          
+          
 
 
         </form>

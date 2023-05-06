@@ -68,6 +68,29 @@ function EditTripDriver() {
       setTripFormValues({ ...tripFormValues, [name]: value });
     }
 
+    function handleDelete(event) {
+      axios.delete(
+        "https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/trip/" + tripID,
+        {
+          headers: {
+            Authorization: userToken,
+          },
+        }
+      )
+      .then((res) => {
+        if (res.status === 200){
+          alert('Trip successfully deleted')
+          window.location.href = '/mytripsDriver';
+        }
+        else {
+          alert('Trip could not be deleted');
+        }
+      })
+      .catch((err) => {
+        console.log(err)
+      })
+    }
+
     function handleSubmit(event) {
       event.preventDefault();
       const tripValues = { ...tripFormValues };
@@ -140,8 +163,7 @@ function EditTripDriver() {
             </Link>
             <button type="submit" onClick={handleSubmit}>Save</button>
             </div>
-
-
+            <button onClick={handleDelete}>Delete trip</button>
         </form>
       </div>
     );
