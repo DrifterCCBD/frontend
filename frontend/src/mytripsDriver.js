@@ -74,7 +74,7 @@ function MyTrips() {
             <th>Riders</th>
             <th>Date & time</th>
             <th>Max capacity</th>
-            <th>Current capacity</th>
+            <th>Current number of riders</th>
             <th>Price (USD)</th>
             <th>Edit</th>
           </thead>
