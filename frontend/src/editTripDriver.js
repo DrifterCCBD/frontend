@@ -13,13 +13,14 @@ function EditTripDriver() {
   const [tripFormValues, setTripFormValues] = useState({
     origin: "",
     destination: "",
-    date: "",
-    time: "",
-    maxCapacity: "",
+    start_date: "",
+    start_time: "",
+    max_capacity: "",
     price: ""
   })
-
-  const { tripID } = useParams();
+  const queryParameters = new URLSearchParams(window.location.search);
+  const tripID = queryParameters.get("id");
+  console.log(queryParameters, tripID)
 
   useEffect(() => {
     Auth.currentAuthenticatedUser()
@@ -41,14 +42,15 @@ function EditTripDriver() {
           }
         })
         .then((res) => {
+          console.log(res)
           const trip = JSON.parse(res.data.body)
           console.log("trip is", trip)
           setTripFormValues({
             origin: trip.origin != null ? trip.origin : "",
             destination: trip.destination != null ? trip.destination : "",
-            date: trip.start_date != null ? trip.start_date : "",
-            time: trip.start_time != null ? trip.start_time : "",
-            maxCapacity: trip.max_capacity != null ? trip.max_capacity : "",
+            start_date: trip.start_date != null ? trip.start_date : "",
+            start_time: trip.start_time != null ? trip.start_time : "",
+            max_capacity: trip.max_capacity != null ? trip.max_capacity : "",
             price: trip.price != null ? trip.price : ""
           });
 
@@ -119,14 +121,14 @@ function EditTripDriver() {
           <label for="destination">Destination:</label>
           <input type="text" id="destination" name="destination" value={tripFormValues.destination} onChange={handleInputChange} required/>
 
-          <label for="date">Date of travel:</label>
-          <input type="date" id="date" name="date" value={tripFormValues.date} onChange={handleInputChange} required/>
+          <label for="start_date">Date of travel:</label>
+          <input type="date" id="start_date" name="start_date" value={tripFormValues.start_date} onChange={handleInputChange} required/>
 
-          <label for="time">Time of travel:</label>
-          <input type="time" id="time" name="time" value={tripFormValues.time} onChange={handleInputChange} required/>
+          <label for="start_time">Time of travel:</label>
+          <input type="time" id="start_time" name="start_time" value={tripFormValues.start_time} onChange={handleInputChange} required/>
 
-          <label for="maxCapacity">Max capacity:</label>
-          <input type="number" id="maxCapacity" name="maxCapacity" value={tripFormValues.maxCapacity} onChange={handleInputChange} required/>
+          <label for="max_capacity">Max capacity:</label>
+          <input type="number" id="max_capacity" name="max_capacity" value={tripFormValues.max_capacity} onChange={handleInputChange} required/>
 
           <label for="price">Price (USD):</label>
           <input type="number" id="price" name="price" value={tripFormValues.price} onChange={handleInputChange} required/>
