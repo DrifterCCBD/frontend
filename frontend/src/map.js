@@ -44,7 +44,6 @@ function Map() {
     const destination_input = values.destination
     const driver_username = values.driverInfo
     const trip_depart_time = values.departs
-    const price = values.price
     const [buttonPopup, setButtonPopup] = useState(false);
 
     if (!isLoaded) {
@@ -136,7 +135,6 @@ function Map() {
                         <Text fontSize="1vw" padding="1vw">Arrives: {trip_arrive_time}</Text>
                         <Text fontSize="1vw" padding="1vw">From: {origin_input}</Text>
                         <Text fontSize="1vw" padding="1vw">To: {destination_input}</Text>
-                        <Text fontSize="1vw" padding="1vw">Price: {price}</Text>
                         {/* <Text>Distance: {distance}</Text>
                         <Text>Duration: {duration}</Text> */}
                     </HStack>
