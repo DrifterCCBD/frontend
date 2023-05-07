@@ -82,7 +82,7 @@ function Frontpage() {
             ) : (
               <>
                 {driver ? (
-                  <Link to="/myTripsDriver">
+                  <Link to="/mytripsDriver">
                     <button className="frontpage-button">
                       Get drifting 
                       <FontAwesomeIcon icon={faArrowRight} className="right-arrow"/>

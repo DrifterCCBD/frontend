@@ -98,8 +98,8 @@ function AvailableRoutesRider() {
             <th>Destination</th>
             <th>Origin</th>
             <th>Driver Info</th>
-            <th></th>
-            <th></th>
+            <th>View</th>
+            <th>Request</th>
           </thead>
           <tbody>
             {available_trips.map(item => (
@@ -109,12 +109,12 @@ function AvailableRoutesRider() {
                   <td key={key}>{item[key]}</td>
                 ))}
                 <td>
-                  <button onClick={() => window.location.href=`/map?origin=${item.origin}&destination=${item.destination}&driverInfo=${item.driver_id}&car=${item.car_model}&departureTime=${item.start_time}}`}>
+                  <button className="table-button" onClick={() => window.location.href=`/map?origin=${item.origin}&destination=${item.destination}&driverInfo=${item.driver_id}&car=${item.car_model}&departureTime=${item.start_time}}`}>
                     View
                   </button>
                 </td>
                 <td> 
-                  {<button onClick={() => requestToJoinTrip(item.trip_id)}>
+                  {<button className="table-button" onClick={() => requestToJoinTrip(item.trip_id)}>
                     Request
                   </button> }
                 </td>

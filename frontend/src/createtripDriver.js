@@ -84,7 +84,7 @@ function CreateTripDriver() {
             <Link to="/mytripsDriver">
               <button>Back</button>
             </Link>
-            <input type="submit" value="Create trip"/>
+            <input style={{ cursor: 'pointer' }} type="submit" value="Create trip"/>
           </div>
           
           
