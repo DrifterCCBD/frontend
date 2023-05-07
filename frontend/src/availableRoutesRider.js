@@ -109,7 +109,7 @@ function AvailableRoutesRider() {
                   <td key={key}>{item[key]}</td>
                 ))}
                 <td>
-                  <button className="table-button" onClick={() => window.location.href=`/map?origin=${item.origin}&destination=${item.destination}&driverInfo=${item.driver_id}&car=${item.car_model}&departureTime=${item.start_time}}`}>
+                  <button className="table-button" onClick={() => window.location.href=`/map?origin=${item.origin}&destination=${item.destination}&driverInfo=${item.driver_username}&departs=${item.date_time}&price=${item.price}`}>
                     View
                   </button>
                 </td>

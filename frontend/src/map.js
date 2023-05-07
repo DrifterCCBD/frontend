@@ -6,6 +6,8 @@ import './mytripsRider.css'
 import './Popup.css'
 import './map.css'
 import Popup from './Popup'
+import axios from 'axios';
+import { Auth } from 'aws-amplify';
 import {
     Box,
     HStack,
@@ -14,10 +16,7 @@ import {
 import { Link } from "react-router-dom";
 import queryString from 'query-string';
 import { useState, useEffect } from 'react';
-import { debounce } from 'lodash';
-// import { FaLocationArrow, FaTimes } from 'react-icons/fa'
 import { useJsApiLoader, GoogleMap, DirectionsRenderer } from '@react-google-maps/api'
-// import { Autocomplete } from "@aws-amplify/ui-react";
 
 const center = { lat: 40.7129, lng: -74.0072 } // NYC
 const libraries = ['places'];
@@ -27,8 +26,7 @@ const deploy_with_api_key = true;
 function Map() { 
 
     const { isLoaded } = useJsApiLoader({
-        // googleMapsApiKey: (deploy_with_api_key) ? process.env.REACT_APP_GOOGLE_MAPS_API_KEY: "AIzaSyCZKsWmxLCQsO521oOmegTic1VhUiCONJY",
-        googleMapsApiKey: "AIzaSyCZKsWmxLCQsO521oOmegTic1VhUiCONJY",
+        googleMapsApiKey: (deploy_with_api_key) ? process.env.REACT_APP_GOOGLE_MAPS_API_KEY: "AIzaSyCZKsWmxLCQsO521oOmegTic1VhUiCONJY",
         libraries: libraries,
     })
 
@@ -38,14 +36,15 @@ function Map() {
     const [trip_arrive_time, setTripArriveTime] = useState("");
     const [distance, setDistance] = useState('')
     const [duration, setDuration] = useState('')
+    const [carLicensePlate, setCarLicensePlate] = useState('');
+    const [carColor, setCarColor] = useState('');
+    const [carModel, setCarModel] = useState('');
+    const [username, setUsername] = useState('');
     const origin_input = values.origin
     const destination_input = values.destination
-    const driver_name = values.driverInfo
-    const driver_car = values.car
-    const driver_car_color = ""
-    const driver_car_license_no = ""
-    const trip_depart_time = values.departureTime
-    // var trip_arrive_time = ""
+    const driver_username = values.driverInfo
+    const trip_depart_time = values.departs
+    const price = values.price
     const [buttonPopup, setButtonPopup] = useState(false);
 
     if (!isLoaded) {
@@ -77,6 +76,34 @@ function Map() {
     }
     
     calculateRoute();
+
+    Auth.currentAuthenticatedUser()
+    .then( user => {
+        setUsername(user.username)
+        user.getSession((err, session) => {
+            if(err) {
+            throw new Error(err);
+            }
+            const sessionToken = session.getIdToken().jwtToken;
+            axios
+            .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car?username=' + driver_username, {
+                headers: {
+                    "Authorization": sessionToken
+                }
+            })
+            .then((res => {
+                console.log(res)
+                const data = res['data']
+                setCarColor(data['car_color'])
+                setCarModel(data['car_model'])
+                setCarLicensePlate(data['car_license_no'])
+                
+            }))
+            .catch((err) => {
+                console.error('Error: ', err)
+            })
+        })
+    })
     
     return (
         <div>
@@ -99,14 +126,17 @@ function Map() {
                 shadow="base"
                 minW="container.md"
                 zIndex="1"
-                position='absolute' left={0} top={-600} bottom={0} right={0} margin="auto" width="50%" height="15%">
+                position='absolute' left={0} top={-600} bottom={0} right={0} margin="auto" width="70%" height="15%">
                     <HStack spacing={4} mt={-15} justifyContent="space-between">
-                        <Text fontSize="1vw" padding="1vw">Name: {driver_name}</Text>
-                        <Text fontSize="1vw" padding="1vw">Car: {driver_car}</Text>
+                        <Text fontSize="1vw" padding="1vw">Name: {driver_username}</Text>
+                        <Text fontSize="1vw" padding="1vw">Car Model: {carModel}</Text>
+                        <Text fontSize="1vw" padding="1vw">Car Color: {carColor}</Text>
+                        <Text fontSize="1vw" padding="1vw">Car Plate: {carLicensePlate}</Text>
                         <Text fontSize="1vw" padding="1vw">Departs: {trip_depart_time}</Text>
                         <Text fontSize="1vw" padding="1vw">Arrives: {trip_arrive_time}</Text>
                         <Text fontSize="1vw" padding="1vw">From: {origin_input}</Text>
                         <Text fontSize="1vw" padding="1vw">To: {destination_input}</Text>
+                        <Text fontSize="1vw" padding="1vw">Price: {price}</Text>
                         {/* <Text>Distance: {distance}</Text>
                         <Text>Duration: {duration}</Text> */}
                     </HStack>
