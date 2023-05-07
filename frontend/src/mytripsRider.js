@@ -92,7 +92,7 @@ function MyTripsRider() {
             <th>Date & time</th>
             <th>Price</th>
             <th>Driver</th>
-            <th></th>
+            <th>Cancel</th>
           </thead>
           <tbody>
             {future_trips.map(item => (
@@ -106,7 +106,7 @@ function MyTripsRider() {
                   }
                 })}
                  <td> 
-                  {<button onClick={() => cancelTrip(item.trip_id)}>
+                  {<button className="table-button" onClick={() => cancelTrip(item.trip_id)}>
                     Cancel
                   </button> }
                 </td>
@@ -123,7 +123,7 @@ function MyTripsRider() {
             <th>Date & time</th>
             <th>Price</th>
             <th>Driver</th>
-            <th></th>
+            <th>Cancel</th>
           </thead>
           <tbody>
             {pending_trips.map(item => (
@@ -137,7 +137,7 @@ function MyTripsRider() {
                   }
                 })}
                 <td> 
-                  {<button onClick={() => cancelTrip(item.trip_id)}>
+                  {<button className="table-button" onClick={() => cancelTrip(item.trip_id)}>
                     Cancel
                   </button> }
                 </td>

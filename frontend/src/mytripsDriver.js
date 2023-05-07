@@ -116,7 +116,7 @@ function MyTrips() {
   return (
     <div>
       <HeaderDriver></HeaderDriver>
-      <div className="mytrips-div">
+      <div className="mytrips-div-driver">
       <h3>Trip Rider Requests</h3>
         <table className="mytrips-table">
           <thead>
@@ -127,8 +127,8 @@ function MyTrips() {
             <th>Max capacity</th>
             <th>Price (USD)</th>
             <th>Date & time</th>
-            <th></th>
-            <th></th>
+            <th>Accept</th>
+            <th>Decline</th>
           </thead>
           <tbody>
           {pending_requests.map(item => (
@@ -138,10 +138,10 @@ function MyTrips() {
             ))}
             
               <td>
-                  <FontAwesomeIcon onClick={() => {respondTripRequest(item.trip_id,item.request_username,true)}} className="edit-icon" icon={faCheck}/>
+                  <FontAwesomeIcon onClick={() => {respondTripRequest(item.trip_id,item.request_username,true)}} className="edit-icon accept-decline" icon={faCheck}/>
               </td>
               <td>
-                  <FontAwesomeIcon onClick={() => {respondTripRequest(item.trip_id,item.request_username,false)}} className="edit-icon" icon={faBan}/>
+                  <FontAwesomeIcon onClick={() => {respondTripRequest(item.trip_id,item.request_username,false)}} className="edit-icon accept-decline" icon={faBan}/>
               </td>
           </tr>
         ))}
@@ -207,10 +207,11 @@ function MyTrips() {
             ))}
           </tbody>
         </table>
-      </div>
-      <Link to="/createTripDriver">
-        <button className="create-trip-button">Create a new trip</button>
+        <Link to="/createTripDriver">
+          <button className="create-button">Create a new trip</button>
       </Link>
+      </div>
+
     </div>
   );
 }

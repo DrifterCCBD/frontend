@@ -1,4 +1,4 @@
-.mytrips-div{
+.mytrips-div-driver{
     text-align: center;
     margin-top: 10rem;
     margin-bottom: 5rem;
@@ -33,4 +33,13 @@ td{
 
 .info-button{
     color: black;
+}
+
+.create-button{
+    margin-top: 2rem;
+}
+
+
+.accept-decline:hover{
+    cursor: pointer;
 }

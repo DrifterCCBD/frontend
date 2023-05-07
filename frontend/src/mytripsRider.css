@@ -1,4 +1,5 @@
 .mytrips-div {
+    text-align: center;
     width: 100%;
     height: 100%;
 }
@@ -8,6 +9,7 @@
         width: 80%;
         height: 80vh;
         margin: 0 auto;
+        text-align: center;
     }
 }
 
@@ -33,6 +35,10 @@ td{
     margin-left: 5rem;
 }
 
-.create-trip-button{
-    margin-left: 50rem;
+.table-button{
+    text-decoration: underline;
+}
+
+.table-button:hover{
+    cursor: pointer;
 }

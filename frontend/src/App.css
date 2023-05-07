@@ -35,6 +35,7 @@ button{
 
 button:hover{
   font-weight: bold;
+  cursor: pointer;
 }
 
 .frontpage-title{
