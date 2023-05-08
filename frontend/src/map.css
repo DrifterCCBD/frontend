@@ -4,3 +4,21 @@
     align-items: center;
 }
 
+
+.map-container {
+    display: flex;
+    flex-flow: column;
+    height: 100%;
+}
+
+.map-box {
+    flex: 1 1 auto;
+}
+
+.map-description {
+    flex: 0 1 auto;
+}
+
+.map-footer {
+    flex: 0 1 20px;
+}

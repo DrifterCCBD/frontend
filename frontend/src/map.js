@@ -46,19 +46,17 @@ function Map() {
     const trip_depart_time = values.departs
     const [buttonPopup, setButtonPopup] = useState(false);
 
-    if (!isLoaded) {
-        return <div>
-        <HeaderRider></HeaderRider>
-        <div className="mytrips-div">
-            Something Failed!
-        </div>
-        {/* <button className="logout-button">Log out</button> */}
-        </div>
-    }
+
+
 
     async function calculateRoute() {
         if (origin_input === '' || destination_input === '') {
+            console.log("input not defined")
             return 
+        }
+        if(directionsResponse != null) {
+            console.log("not null directions")
+            return
         }
         let directionsService = new google.maps.DirectionsService()
         const results = await directionsService.route({
@@ -74,50 +72,68 @@ function Map() {
         directionsService = null; 
     }
     
-    calculateRoute();
+    
 
-    Auth.currentAuthenticatedUser()
-    .then( user => {
-        setUsername(user.username)
-        user.getSession((err, session) => {
-            if(err) {
-            throw new Error(err);
-            }
-            const sessionToken = session.getIdToken().jwtToken;
-            axios
-            .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car?username=' + driver_username, {
-                headers: {
-                    "Authorization": sessionToken
+    useEffect(() => {
+        Auth.currentAuthenticatedUser()
+        .then( user => {
+            setUsername(user.username)
+            user.getSession((err, session) => {
+                if(err) {
+                throw new Error(err);
                 }
-            })
-            .then((res => {
-                console.log(res)
-                const data = res['data']
-                setCarColor(data['car_color'])
-                setCarModel(data['car_model'])
-                setCarLicensePlate(data['car_license_no'])
-                
-            }))
-            .catch((err) => {
-                console.error('Error: ', err)
+                const sessionToken = session.getIdToken().jwtToken;
+                axios
+                .get('https://g6m80dg8k6.execute-api.us-east-1.amazonaws.com/prod/driver/car?username=' + driver_username, {
+                    headers: {
+                        "Authorization": sessionToken
+                    }
+                })
+                .then((res => {
+                    console.log(res)
+                    const data = res['data']
+                    setCarColor(data['car_color'])
+                    setCarModel(data['car_model'])
+                    setCarLicensePlate(data['car_license_no'])
+                    
+                }))
+                .catch((err) => {
+                    console.error('Error: ', err)
+                })
             })
         })
-    })
+        
+    }, []);
+    calculateRoute();
+
+        if (!isLoaded) {
+        return (<div>
+        <HeaderRider></HeaderRider>
+        <div className="mytrips-div">
+            Something Failed!
+        </div>
+        {
+            //<button className="logout-button">Log out</button> 
+    }
+        </div>)
+    }
     
     return (
         <div>
         <HeaderRider></HeaderRider>
         <div className="mytrips-div">
-            <Box position='absolute' left={0} top={-100} bottom={0} right={0} margin="auto" width="75%" height="75%">
+            <div className="map-container">
+            <Box className='map-box' margin="auto" width="75%" height="100%">
                 {/* Google Map Box */}
                 <GoogleMap center={center} zoom={13} mapContainerStyle={{width:"100%", height:"100%"}} options={{
                     streetViewControl: false,
                     fullscreenControl: false,
-                }} onload={map => setMap(map)}>
+                }} onLoad={map => setMap(map)}>
                     {/* Display markers or directions */}
                     {directionsResponse && <DirectionsRenderer directions={directionsResponse}/>}
                 </GoogleMap>
-                <Box
+                </Box>
+                <Box className='map-description'
                 p={4}
                 borderRadius="lg"
                 m={4}
@@ -125,7 +141,7 @@ function Map() {
                 shadow="base"
                 minW="container.md"
                 zIndex="1"
-                position='absolute' left={0} top={-600} bottom={0} right={0} margin="auto" width="70%" height="15%">
+                 margin="auto" width="80%">
                     <HStack spacing={4} mt={-15} justifyContent="space-between">
                         <Text fontSize="1vw" padding="1vw">Name: {driver_username}</Text>
                         <Text fontSize="1vw" padding="1vw">Car Model: {carModel}</Text>
@@ -139,28 +155,30 @@ function Map() {
                         <Text>Duration: {duration}</Text> */}
                     </HStack>
                 </Box>
-            </Box>
-        </div>
-        <Box
-            p={4}
-            borderRadius="lg"
-            m={4}
-            bgColor="white"
-            shadow="base"
-            minW="container.md"
-            zIndex="1"
-            position='absolute' left={0} top={760} bottom={0} right={0} margin="auto" width="75%" height="15%">
-            <div className="button-container">
-                <Link to="/availableRoutesRider">
-                    <button className="Back">Back</button>
-                </Link>
-                {/* <button className="Confirm" onClick={() => setButtonPopup(true)}>Confirm</button> */}
-            </div>
             
-            {/* <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-            <h3> Confirm trip with {driver_name}?</h3>
-            </Popup> */}
-        </Box>
+            <Box
+                className='map-footer'
+                p={4}
+                borderRadius="lg"
+                m={4}
+                bgColor="white"
+                shadow="base"
+                minW="container.md"
+                zIndex="1"
+                margin="auto" width="75%">
+                <div className="button-container">
+                    <Link to="/availableRoutesRider">
+                        <button className="Back">Back</button>
+                    </Link>
+                    {/* <button className="Confirm" onClick={() => setButtonPopup(true)}>Confirm</button> */}
+                </div>
+                
+                {/* <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
+                <h3> Confirm trip with {driver_name}?</h3>
+                </Popup> */}
+            </Box>
+            </div>
+        </div>
         </div>
     );
 }
