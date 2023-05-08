@@ -63,7 +63,7 @@ const UserInfo = () => {
       })
 
     if (user === 'Rider'){
-      window.location.href = '/addPaymentMethod';
+      window.location.href = '/addFirstPaymentMethod';
     }
     else if (user === 'Driver'){
       window.location.href = '/addDriverInfo';
