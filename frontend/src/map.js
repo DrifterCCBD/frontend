@@ -21,7 +21,7 @@ import { useJsApiLoader, GoogleMap, DirectionsRenderer } from '@react-google-map
 const center = { lat: 40.7129, lng: -74.0072 } // NYC
 const libraries = ['places'];
 
-const deploy_with_api_key = true;
+const deploy_with_api_key = false;
 
 function Map() { 
 
@@ -110,11 +110,8 @@ function Map() {
         return (<div>
         <HeaderRider></HeaderRider>
         <div className="mytrips-div">
-            Something Failed!
+            Loading...
         </div>
-        {
-            //<button className="logout-button">Log out</button> 
-    }
         </div>)
     }
     
@@ -170,12 +167,8 @@ function Map() {
                     <Link to="/availableRoutesRider">
                         <button className="Back">Back</button>
                     </Link>
-                    {/* <button className="Confirm" onClick={() => setButtonPopup(true)}>Confirm</button> */}
                 </div>
                 
-                {/* <Popup trigger={buttonPopup} setTrigger={setButtonPopup}>
-                <h3> Confirm trip with {driver_name}?</h3>
-                </Popup> */}
             </Box>
             </div>
         </div>
