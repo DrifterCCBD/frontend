@@ -43,11 +43,16 @@ const DriverInfo = () => {
           Promise.all(axiosRequests)
             .then(responses => {
               console.log(responses);
-              const failedRequests = responses.filter(response => response.status !== 200);
+              const failedRequests = responses.filter(response => {
+                if (response.status !== 200 || response.data.hasOwnProperty('errorMessage')) {
+                  return true; // include in failedRequests
+                }
+                return false; // exclude from failedRequests
+              });
+              
               if (failedRequests.length > 0) {
                 throw new Error('Failed to add driver or car information');
               }
-
               window.location.href = '/mytripsDriver';
             })
             .catch(error => {
